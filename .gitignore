@@ -1,0 +1,134 @@
+# Laravel specific
+.env
+.env.backup
+.env.production
+.env.local
+.env.testing
+/bootstrap/cache/*
+!/bootstrap/cache/.gitkeep
+/storage/app/*
+!/storage/app/.gitkeep
+!/storage/app/public
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/testing/*
+!/storage/framework/testing/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/pail
+/storage/*.key
+/auth.json
+
+# Vendor files
+/vendor
+
+# Build files
+/public/build
+/public/hot
+/public/storage
+/public/mix-manifest.json
+
+# Node.js
+/node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Testing
+.phpunit.result.cache
+/.phpunit.cache
+/coverage
+/phpunit.xml
+
+# IDE and editors
+/.idea
+/.vscode
+/.nova
+/.fleet
+/.zed
+/.phpactor.json
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+/storage/logs/*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Homestead
+Homestead.json
+Homestead.yaml
+
+# Docker
+.docker
+docker-compose.override.yml
+
+# Backup files
+*.bak
+*.backup
+*.tmp
+
+# Cache files
+.cache
+.parcel-cache
+
+# Database
+*.sqlite
+*.sqlite3
+database.sqlite
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Laravel Telescope (if used)
+/public/vendor/telescope
+
+# Laravel Horizon (if used)
+/public/vendor/horizon
+
+# Laravel Nova (if used)
+/nova
+
+# Debugbar (if used)
+/storage/debugbar
+
+# Custom application files (add your specific files here)
+/public/uploads
+/public/files
