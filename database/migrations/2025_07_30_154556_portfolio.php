@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('set null');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('name')->nullable();
             $table->text('profile_image')->nullable(); 
             $table->text('insta_link')->nullable();
@@ -48,7 +48,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('portfolios');
+        Schema::dropIfExists('skills');
         Schema::dropIfExists('projects');
+        Schema::dropIfExists('portfolios');
     }
 };
