@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Portfolio extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'user_id',
         'name',
@@ -17,19 +25,27 @@ class Portfolio extends Model
         'linkedin_link',
     ];
 
-    public function user(){
-        // This function seems to be misplaced, it should be a relationship method
-        // It should return the user associated with this portfolio
-        return $this->belongsTo(User::class, 'user_id');
+    /**
+     * Get the user that owns the portfolio.
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
-    public function projects()
+    /**
+     * Get the projects for the portfolio.
+     */
+    public function projects(): HasMany
     {
-        return $this->hasMany(Project::class, 'portfolio_id');
+        return $this->hasMany(Project::class);
     }
 
-    public function skills()
+    /**
+     * Get the skills for the portfolio.
+     */
+    public function skills(): HasMany
     {
-        return $this->hasMany(Skills::class, 'portfolio_id');
+        return $this->hasMany(Skill::class);
     }
 }

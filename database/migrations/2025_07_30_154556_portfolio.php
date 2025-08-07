@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('name')->nullable();
             $table->text('profile_image')->nullable(); 
+            $table->text('description')->nullable(); 
             $table->text('insta_link')->nullable();
             $table->text('git_link')->nullable(); 
             $table->text('linkedin_link')->nullable();
@@ -27,6 +28,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('portfolio_id')->constrained('portfolios')->onDelete('cascade');
             $table->string('name'); // "Zee Scraper APP", "Arnet Dashboard Web"
+            $table->text('image')->nullable(); // Path to project image
             $table->text('description'); // Long description paragraph
             $table->text('link')->nullable(); // Link to project
             $table->json('tech_stack')->nullable(); // Array of technology stack ["devicon-vuejs-plain", "devicon-tailwindcss-plain"]

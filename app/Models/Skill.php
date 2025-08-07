@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Project extends Model
+class Skill extends Model
 {
     use HasFactory;
 
@@ -18,22 +18,11 @@ class Project extends Model
     protected $fillable = [
         'portfolio_id',
         'name',
-        'description',
-        'link',
-        'tech_stack',
+        'icon',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'tech_stack' => 'array',
-    ];
-
-    /**
-     * Get the portfolio that owns the project.
+     * Get the portfolio that owns the skill.
      */
     public function portfolio(): BelongsTo
     {

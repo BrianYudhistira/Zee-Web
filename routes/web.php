@@ -7,7 +7,7 @@ use App\Http\Middleware\CheckLogin;
 
 Route::get('/', [WebController::class, 'index']);
 
-Route::get('/portfolio', [WebController::class, 'portfolio']);
+Route::get('/portfolio', [App\Http\Controllers\PortfolioController::class, 'index'])->name('portfolio.index');
 
 Route::get('/login', [WebController::class, 'login']);
 Route::post('/login', [WebController::class, 'signin'])->name('signin');
@@ -17,6 +17,10 @@ Route::post('/register', [WebController::class, 'signup'])->name('signup');
 
 Route::get('/dashboard', [WebController::class, 'dashboard'])->middleware(CheckLogin::class);
 Route::get('/profile', [WebController::class, 'profile'])->middleware(CheckLogin::class);
+
+Route::get('/ZeeScraper', function () {
+    return view('zeescraper.scraper');
+})->name('zeescraper');
 
 Route::post('/logout', function (Illuminate\Http\Request $request) {
     Auth::logout();

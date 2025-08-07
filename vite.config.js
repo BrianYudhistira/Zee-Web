@@ -9,7 +9,8 @@ export default defineConfig({
                 'resources/css/portfolio.css', 
                 'resources/css/login.css',
                 'resources/js/app.js', 
-                'resources/js/portfolio.js'
+                'resources/js/portfolio.js',
+                'resources/css/zeescraper.css',
             ],
             refresh: true,
         }),

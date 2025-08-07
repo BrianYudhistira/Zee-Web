@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', 
     ];
 
     /**
@@ -46,7 +47,7 @@ class User extends Authenticatable
         ];
     }
 
-    public function portfolios()
+    public function portfolio()
     {
         return $this->hasOne(Portfolio::class, 'user_id');
     }
