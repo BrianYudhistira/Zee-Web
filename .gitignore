@@ -132,3 +132,6 @@ database.sqlite
 # Custom application files (add your specific files here)
 /public/uploads
 /public/files
+
+/public/image/1_brian_image/
+# /public/image/
