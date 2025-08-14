@@ -103,15 +103,15 @@
             <div class="lg:w-1/2 fade-in">
               <h1 class="text-5xl lg:text-6xl font-bold mb-6">
                 <span class="text-white leading-relaxed">Halo, Saya</span>
-                <span class="text-primary"> {{ $portfolio->name ?? 'User' }} </span>
+                <span class="text-primary"> {{ $user->name ?? 'User' }} </span>
               </h1>
               <p class="text-xl text-white mb-8 leading-relaxed font-light">
-                {{$portfolio->description ?? 'Pengembang web yang passionate dalam menciptakan solusi digital inovatif. Saya memiliki ketertarikan mendalam terhadap teknologi web modern dan selalu antusias untuk mempelajari hal-hal baru dalam dunia IT.'}}
+                {{$user->bio ?? 'Pengembang web yang passionate dalam menciptakan solusi digital inovatif. Saya memiliki ketertarikan mendalam terhadap teknologi web modern dan selalu antusias untuk mempelajari hal-hal baru dalam dunia IT.'}}
               </p>
               <div class="flex space-x-2">
-                @if($portfolio && $portfolio->git_link)
+                @if($user && $user->git_link)
                 <a
-                  href="{{ $portfolio->git_link }}"
+                  href="{{ $user->git_link }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="bg-gray-900 text-white hover:bg-primary font-medium text-2xl items-center justify-center px-3 py-2 rounded-2xl transition-colors duration-300"
@@ -120,9 +120,9 @@
                 </a>
                 @endif
 
-                @if($portfolio && $portfolio->linkedin_link)
+                @if($user && $user->linkedin_link)
                 <a
-                  href="{{ $portfolio->linkedin_link }}"
+                  href="{{ $user->linkedin_link }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="bg-gray-900 text-white hover:bg-primary font-medium text-2xl items-center justify-center px-3 py-2 rounded-2xl transition-colors duration-300"
@@ -131,9 +131,9 @@
                 </a>
                 @endif
 
-                @if($portfolio && $portfolio->insta_link)
+                @if($user && $user->insta_link)
                 <a
-                  href="{{ $portfolio->insta_link }}"
+                  href="{{ $user->insta_link }}"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="bg-gray-900 text-white hover:bg-primary font-medium text-2xl items-center justify-center px-3 py-2 rounded-2xl transition-colors duration-300"
@@ -147,8 +147,8 @@
               <div class="relative">
                 <div class="mb-8">
                   <img
-                    src="{{ asset($portfolio->profile_image) }}"
-                    alt="{{ $portfolio ? $portfolio->name . ' image' : 'Profile_image' }}"
+                    src="{{ asset($user->profile_image) }}"
+                    alt="{{ $user->name . ' image' }}"
                     class="w-23 h-20 md:w-80 md:h-80 rounded-full mx-auto mt-4 object-cover object-top"
                   />
                 </div>
@@ -173,9 +173,9 @@
               Teknologi dan tools yang saya kuasai
             </p>
           </div>
-          @if($portfolio && $portfolio->skills)
+          @if($skills)
             <div class="grid md:grid-cols-4 gap-8">
-              @foreach($portfolio->skills as $skill)
+              @foreach($skills as $skill)
                 <div class="group bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600 hover:border-primary hover:bg-gray-800/70 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 cursor-pointer">
                   <div class="text-center">
                     <i class="{{ $skill->icon }} text-4xl mb-4 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
@@ -196,8 +196,8 @@
             </p>
           </div>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-9">
-            @if($portfolio && $portfolio->projects)
-              @foreach($portfolio->projects as $project)
+            @if($projects)
+              @foreach($projects as $project)
                 <div class="project-card rounded-2xl overflow-hidden border-2 border-gray-600 bg-gray-900/50 fade-in transition-all">
                   <div class="h-48 overflow-hidden">
                     <img

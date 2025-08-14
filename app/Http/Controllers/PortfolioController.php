@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Portfolio;
 use App\Models\Project;
 use App\Models\Skill;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PortfolioController extends Controller
 {
@@ -15,83 +17,154 @@ class PortfolioController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $userId = $user ? $user->id : 1; 
-        $portfolio = Portfolio::with(['projects', 'skills'])
-                              ->where('user_id', $userId)
-                              ->first();
+        // Get owner (admin) with projects & skills directly
+        $user = User::find(1);
+        $projects= Project::all();
+        $skills = Skill::all();
 
-        return view('portfolio/portfolio', compact('user', 'portfolio'));
+        return view('portfolio/portfolio', compact('user', 'projects', 'skills'));
+    }
+
+    public function profile(){
+        // Load current user with projects & skills
+        $user = User::find(Auth::id());
+        $projects = Project::all();
+        $skills = Skill::all();
+
+        return view('dashboard/Profile/profile', compact('user', 'projects', 'skills'));
+    }
+
+    public function profileForm(){
+        $user = Auth::user();
+        return view('dashboard/Profile/profile_form', compact('user'));
+    }
+
+    public function project_form(Project $project = null){
+        if($project){
+            return view('dashboard/Profile/project_form', compact('project'));
+        }
+        return view('dashboard/Profile/project_form');
+    }
+
+    public function skills_form(Skill $skill = null){
+        if($skill){
+            return view('dashboard/Profile/skills_form', compact('skill'));
+        }
+        return view('dashboard/Profile/skills_form');
     }
 
     /**
-     * Show the form for creating/editing portfolio.
+     * Store/Update user profile.
      */
-    public function create()
-    {
-        $user = Auth::user();
-        $portfolio = Portfolio::where('user_id', $user->id)->first();
-        
-        return view('portfolio.create', compact('portfolio'));
-    }
-
-    /**
-     * Store or update portfolio data.
-     */
-    public function store(Request $request)
+    public function storeProfile(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'profile_image' => 'nullable|string',
+            'desc' => 'nullable|string|max:500',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'bio' => 'nullable|string|max:500',
             'insta_link' => 'nullable|url',
-            'git_link' => 'nullable|url',
+            'github_link' => 'nullable|url',
             'linkedin_link' => 'nullable|url',
         ]);
 
-        $portfolioData = [
-            'user_id' => Auth::id(),
+        $user = Auth::user();
+        
+        // Prepare update data
+        $updateData = [
             'name' => $request->name,
-            'profile_image' => $request->profile_image,
+            'description' => $request->desc,
+            'bio' => $request->bio,
             'insta_link' => $request->insta_link,
-            'git_link' => $request->git_link,
+            'git_link' => $request->github_link,
             'linkedin_link' => $request->linkedin_link,
         ];
 
-        Portfolio::updateOrCreate(
-            ['user_id' => Auth::id()],
-            $portfolioData
-        );
+        if ($request->hasFile('profile_image')) {
+            // Delete old profile image if exists
+            if (!empty($user->profile_image)) {
+                $oldImagePath = public_path($user->profile_image);
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
+            }
+            
+            $image = $request->file('profile_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('image/profile_image'), $imageName);
+            $updateData['profile_image'] = 'image/profile_image/' . $imageName;
+        }
 
-        return redirect()->route('portfolio.index')->with('success', 'Portfolio saved successfully!');
+        // Update user profile
+        User::where('id', $user->id)->update($updateData);
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully!');
     }
-
     /**
      * Store a new project.
      */
-    public function storeProject(Request $request)
+    public function storeProject(Request $request, Project $project = null)
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'description' => 'required|string',
             'link' => 'nullable|url',
             'tech_stack' => 'nullable|array',
         ]);
 
-        $portfolio = Portfolio::where('user_id', Auth::id())->first();
+        $imagePath = null;
         
-        if (!$portfolio) {
-            return redirect()->back()->with('error', 'Please create your portfolio first!');
+        if($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('image/projects'), $imageName);
+            $imagePath = 'image/projects/' . $imageName;
         }
-
+        
         Project::create([
-            'portfolio_id' => $portfolio->id,
             'name' => $request->name,
+            'image' => $imagePath,
             'description' => $request->description,
             'link' => $request->link,
             'tech_stack' => $request->tech_stack,
         ]);
+        return redirect()->route('profile')->with('success', 'Project added successfully!');
+    }
 
-        return redirect()->route('portfolio.index')->with('success', 'Project added successfully!');
+    public function updateProject(Request $request, Project $project)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'description' => 'required|string',
+            'link' => 'nullable|url',
+            'tech_stack' => 'nullable|array',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'link' => $request->link,
+            'tech_stack' => $request->tech_stack,
+        ];
+
+        if ($request->hasFile('image')) {
+            // Delete old image if exists
+            if ($project->image) {
+                File::delete(public_path($project->image));
+            }
+            
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('image/projects'), $imageName);
+            $data['image'] = 'image/projects/' . $imageName;
+        }
+
+        // Update project
+        $project->update($data);
+
+        return redirect()->route('profile')->with('success', 'Project updated successfully!');
     }
 
     /**
@@ -104,19 +177,29 @@ class PortfolioController extends Controller
             'icon' => 'nullable|string',
         ]);
 
-        $portfolio = Portfolio::where('user_id', Auth::id())->first();
-        
-        if (!$portfolio) {
-            return redirect()->back()->with('error', 'Please create your portfolio first!');
-        }
-
+            // Create new skill
         Skill::create([
-            'portfolio_id' => $portfolio->id,
             'name' => $request->name,
             'icon' => $request->icon,
         ]);
 
-        return redirect()->route('portfolio.index')->with('success', 'Skill added successfully!');
+        return redirect()->route('profile')->with('success', 'Skill added successfully!');
+    }
+
+    public function updateSkill(Request $request, Skill $skill)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'icon' => 'nullable|string',
+        ]);
+
+        // Update skill
+        $skill->update([
+            'name' => $request->name,
+            'icon' => $request->icon,
+        ]);
+
+        return redirect()->back()->with('success', 'Skill updated successfully!');
     }
 
     /**
@@ -124,13 +207,8 @@ class PortfolioController extends Controller
      */
     public function destroyProject(Project $project)
     {
-        // Check if project belongs to authenticated user
-        if ($project->portfolio->user_id !== Auth::id() || Auth::user()->role !== 'admin') {
-            return redirect()->back()->with('error', 'Unauthorized action!');
-        }
-
         $project->delete();
-        return redirect()->route('portfolio.index')->with('success', 'Project deleted successfully!');
+        return redirect()->route('profile')->with('success', 'Project deleted successfully!');
     }
 
     /**
@@ -138,13 +216,8 @@ class PortfolioController extends Controller
      */
     public function destroySkill(Skill $skill)
     {
-        // Check if skill belongs to authenticated user
-        if ($skill->portfolio->user_id !== Auth::id()) {
-            return redirect()->back()->with('error', 'Unauthorized action!');
-        }
-
         $skill->delete();
-        return redirect()->route('portfolio.index')->with('success', 'Skill deleted successfully!');
+        return redirect()->route('profile')->with('success', 'Skill deleted successfully!');
     }
 
     /**

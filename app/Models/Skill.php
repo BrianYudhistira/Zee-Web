@@ -15,17 +15,12 @@ class Skill extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'portfolio_id',
+    protected $fillable = [ 
         'name',
         'icon',
     ];
 
     /**
-     * Get the portfolio that owns the skill.
+     * Get the user that owns the skill.
      */
-    public function portfolio(): BelongsTo
-    {
-        return $this->belongsTo(Portfolio::class);
-    }
 }

@@ -15,9 +15,9 @@ class Project extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'portfolio_id',
+    protected $fillable = [  
         'name',
+        'image',
         'description',
         'link',
         'tech_stack',
@@ -31,12 +31,4 @@ class Project extends Model
     protected $casts = [
         'tech_stack' => 'array',
     ];
-
-    /**
-     * Get the portfolio that owns the project.
-     */
-    public function portfolio(): BelongsTo
-    {
-        return $this->belongsTo(Portfolio::class);
-    }
 }

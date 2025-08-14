@@ -16,29 +16,24 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create test user
+        // Create admin user with portfolio data embedded
         $user = User::create([
             'name' => 'Brian Yudhistira',
             'email' => 'brian@example.com',
             'password' => bcrypt('password'),
-        ]);
-
-        // Create portfolio with local storage image
-        $portfolio = Portfolio::create([
-            'user_id' => $user->id,
-            'name' => 'Brian Yudhistira',
-            'profile_image' => 'image/1_brian_image/profile.JPG',
-            'description' => 'Pengembang web yang passionate dalam menciptakan solusi digital inovatif. Saya memiliki ketertarikan mendalam terhadap teknologi web modern dan selalu antusias untuk mempelajari hal-hal baru dalam dunia IT.',
+            'role' => 'admin',
+            // Portfolio fields moved to user
+            'bio' => 'Pengembang web yang passionate dalam menciptakan solusi digital inovatif. Saya memiliki ketertarikan mendalam terhadap teknologi web modern dan selalu antusias untuk mempelajari hal-hal baru dalam dunia IT.',
+            'profile_image' => 'image/profile_image/profile.JPG',
             'insta_link' => 'https://www.instagram.com/brian.yudhistira1',
             'git_link' => 'https://github.com/BrianYudhistira',
             'linkedin_link' => 'https://www.linkedin.com/in/brian-yudhistira-95a62b221',
         ]);
 
-        // Create sample projects
+        // Create sample projects (directly linked to user)
         Project::create([
-            'portfolio_id' => $portfolio->id,
             'name' => 'Zee Scraper APP',
-            'image' => 'image/1_brian_image/project_2.png',
+            'image' => 'image/profile_image/project_2.png',
             'description' => 'Aplikasi android yang secara otomatis men-scrape dan menampilkan
                   informasi build karakter dari berbagai game, membantu pemain
                   mengakses data penting secara cepat dan praktis.',
@@ -47,9 +42,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Project::create([
-            'portfolio_id' => $portfolio->id,
             'name' => 'Arnet Dashboard Web',
-            'image' => 'image/1_brian_image/project_1.png',
+            'image' => 'image/profile_image/project_1.png',
             'description' => 'Aplikasi web internal yang dikembangkan di Telkom Indonesia
                   untuk pengumpulan dan visualisasi data agar dapat diakses oleh
                   karyawan secara efisien.',
@@ -58,9 +52,8 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Project::create([
-            'portfolio_id' => $portfolio->id,
             'name' => 'Minatku APP',
-            'image' => 'image/1_brian_image/project_3.png',
+            'image' => 'image/profile_image/project_3.png',
             'description' => 'MinatKu adalah aplikasi yang dibuat untuk memenuhi proyek
                   capstone dalam program Bangkit. Proyek ini dikerjakan oleh 7
                   peserta dari Bangkit 2023 Batch 2, dengan 3 dari Machine
@@ -70,8 +63,7 @@ class DatabaseSeeder extends Seeder
             'tech_stack' => ['devicon-kotlin-plain'],
         ]);
 
-
-        // Create sample skills
+        // Create sample skills (directly linked to user)
         $skills = [
             ['name' => 'PHP', 'icon' => 'devicon-php-plain'],
             ['name' => 'Laravel', 'icon' => 'devicon-laravel-plain'],
@@ -85,10 +77,26 @@ class DatabaseSeeder extends Seeder
 
         foreach ($skills as $skill) {
             Skill::create([
-                'portfolio_id' => $portfolio->id,
                 'name' => $skill['name'],
                 'icon' => $skill['icon'],
             ]);
         }
+
+        // Create some guest users (for future commenting feature)
+        User::create([
+            'name' => 'Guest User 1',
+            'email' => 'guest1@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'user',
+            // No portfolio fields for guests
+        ]);
+
+        User::create([
+            'name' => 'Guest User 2',
+            'email' => 'guest2@example.com',
+            'password' => bcrypt('password'),
+            'role' => 'user',
+            // No portfolio fields for guests
+        ]);
     }
 }

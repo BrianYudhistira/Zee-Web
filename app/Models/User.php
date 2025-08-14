@@ -21,7 +21,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', 
+        'role',
+        // Portfolio fields
+        'bio',
+        'profile_image',
+        'insta_link',
+        'git_link',
+        'linkedin_link',
     ];
 
     /**
@@ -45,10 +51,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    public function portfolio()
-    {
-        return $this->hasOne(Portfolio::class, 'user_id');
     }
 }

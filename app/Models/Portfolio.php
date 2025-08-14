@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @deprecated Portfolio data has been moved to User model.
+ * This model is kept for backward compatibility only.
+ * Use User model portfolio fields instead.
+ */
 class Portfolio extends Model
 {
     use HasFactory;
