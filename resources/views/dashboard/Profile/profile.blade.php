@@ -205,10 +205,8 @@
             @endif
         </div>
     </section>
-@endsection
 
 <script>
-
 // Add event listeners for delete forms
 document.addEventListener('DOMContentLoaded', function() {
     const deleteForms = document.querySelectorAll('.delete-form');
@@ -247,3 +245,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 5000);
 });
 </script>
+@endsection

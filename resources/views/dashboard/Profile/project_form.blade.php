@@ -114,7 +114,62 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="space-y-2">
+                    <label class="block text-sm font-semibold text-gray-700" for="tech_stack">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            Tech Stack
+                        </span>
+                    </label>
+                    
+                    <!-- Container for tech stack inputs -->
+                    <div id="tech-stack-container" class="space-y-2">
+                        @if(isset($project) && $project->tech_stack)
+                            @foreach($project->tech_stack as $index => $tech)
+                                <div class="flex items-center gap-2 tech-stack-item">
+                                    <input type="text" name="tech_stack[]" value="{{ old('tech_stack.'.$index, $tech) }}"
+                                           class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400"
+                                           placeholder="e.g. devicon-php-plain">
+                                    <button type="button" onclick="removeTechStack(this)" 
+                                            class="px-3 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                    </button>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="flex items-center gap-2 tech-stack-item">
+                                <input type="text" name="tech_stack[]" value="{{ old('tech_stack.0') }}"
+                                       class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400"
+                                       placeholder="e.g. devicon-php-plain">
+                                <button type="button" onclick="removeTechStack(this)" 
+                                        class="px-3 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                    </svg>
+                                    </button>
+                                </div>
+                        @endif
+                    </div>
+                    
+                    <!-- Add new tech stack button -->
+                    <button type="button" onclick="addTechStack()" 
+                            class="inline-flex items-center px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition duration-200">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                        Add Tech Stack
+                    </button>
+                    
+                    <!-- Help text -->
+                    <p class="text-xs text-gray-500 mt-1">
+                        Add DevIcon class names (e.g., devicon-react-original, devicon-nodejs-plain)
+                    </p>
+                </div>
+
                 <!-- Submit Button -->
                 <div class="flex justify-end pt-6 border-t border-gray-200">
                     <button type="submit" class="inline-flex items-center px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
@@ -127,8 +182,6 @@
             </form>
         </div>
     </section>
-@endsection
-
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -198,6 +251,38 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+// Tech Stack Functions
+function addTechStack() {
+    const container = document.getElementById('tech-stack-container');
+    const newItem = document.createElement('div');
+    newItem.className = 'flex items-center gap-2 tech-stack-item';
+    newItem.innerHTML = `
+        <input type="text" name="tech_stack[]" value=""
+               class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-purple-500 focus:border-purple-500 hover:border-gray-400"
+               placeholder="e.g. devicon-php-plain">
+        <button type="button" onclick="removeTechStack(this)" 
+                class="px-3 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition duration-200">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+            </svg>
+        </button>
+    `;
+    container.appendChild(newItem);
+}
+
+function removeTechStack(button) {
+    const container = document.getElementById('tech-stack-container');
+    const items = container.querySelectorAll('.tech-stack-item');
+    
+    // Don't remove if it's the last item
+    if (items.length > 1) {
+        button.closest('.tech-stack-item').remove();
+    } else {
+        // Clear the input instead
+        const input = button.closest('.tech-stack-item').querySelector('input');
+        input.value = '';
+    }
+}
 
 function clearProjectPreview() {
     const projectInput = document.getElementById('project_image');
@@ -215,3 +300,6 @@ function clearProjectPreview() {
     projectPreview.parentElement.style.height = '';
     projectPreview.parentElement.classList.add('min-h-40');
 }
+</script>
+
+@endsection
