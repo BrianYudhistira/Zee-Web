@@ -212,11 +212,13 @@
                       {{ $project->description }}
                     </p>
                     <div class="flex flex-row gap-2">
-                      @foreach($project->tech_stack as $tech)
-                        <div class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center">
-                          <i class="{{ $tech }}"></i>
-                        </div>
-                      @endforeach
+                      @if($project->tech_stack && count($project->tech_stack) > 0)
+                        @foreach($project->tech_stack as $tech)
+                          <div class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center">
+                            <i class="{{ $tech }}"></i>
+                          </div>
+                        @endforeach
+                      @endif
                     </div>
                   </div>
                 </div>
