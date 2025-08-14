@@ -43,9 +43,9 @@
             <span class="font-medium">Dashboard</span>
         </a>
         
-        <a href="/scraper" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('scraper') ? 'bg-blue-600 text-white' : '' }}">
+        <a href="/manage" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('manage') ? 'bg-blue-600 text-white' : '' }}">
             <i class="ri-search-line"></i>
-            <span class="font-medium">Scraper Tools</span>
+            <span class="font-medium">Manage User</span>
         </a>
         
         <a href="/results" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('results') ? 'bg-blue-600 text-white' : '' }}">

@@ -103,41 +103,52 @@
             <div class="lg:w-1/2 fade-in">
               <h1 class="text-5xl lg:text-6xl font-bold mb-6">
                 <span class="text-white leading-relaxed">Halo, Saya</span>
-                <span class="text-primary"> Brian Yudhistira </span>
+                <span class="text-primary"> {{ $user->name ?? 'User' }} </span>
               </h1>
               <p class="text-xl text-white mb-8 leading-relaxed font-light">
-                Pengembang web pemula yang passionate dalam menciptakan solusi
-                digital inovatif. Saya memiliki ketertarikan mendalam terhadap
-                teknologi web modern dan selalu antusias untuk mempelajari
-                hal-hal baru dalam dunia IT.
+                {{$user->bio ?? 'Pengembang web yang passionate dalam menciptakan solusi digital inovatif. Saya memiliki ketertarikan mendalam terhadap teknologi web modern dan selalu antusias untuk mempelajari hal-hal baru dalam dunia IT.'}}
               </p>
               <div class="flex space-x-2">
+                @if($user && $user->git_link)
                 <a
-                  href="https://github.com/brianyudhistira"
+                  href="{{ $user->git_link }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="bg-gray-900 text-white hover:bg-primary font-medium text-2xl items-center justify-center px-3 py-2 rounded-2xl transition-colors duration-300"
                 >
                   <i class="ri-github-line"></i>
                 </a>
+                @endif
+
+                @if($user && $user->linkedin_link)
                 <a
-                  href="https://www.linkedin.com/in/brian-yudhistira-95a62b221/"
+                  href="{{ $user->linkedin_link }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="bg-gray-900 text-white hover:bg-primary font-medium text-2xl items-center justify-center px-3 py-2 rounded-2xl transition-colors duration-300"
                 >
                   <i class="ri-linkedin-line"></i>
                 </a>
+                @endif
+
+                @if($user && $user->insta_link)
                 <a
-                  href="https://www.instagram.com/brian.yudhistira1/"
+                  href="{{ $user->insta_link }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="bg-gray-900 text-white hover:bg-primary font-medium text-2xl items-center justify-center px-3 py-2 rounded-2xl transition-colors duration-300"
                 >
                   <i class="ri-instagram-line"></i>
                 </a>
+                @endif
               </div>
             </div>
             <div class="lg:w-1/2 fade-in">
               <div class="relative">
                 <div class="mb-8">
                   <img
-                    src="{{ asset('image/usercopy.JPG') }}"
-                    alt="Brian Yudhistira"
+                    src="{{ asset($user->profile_image) }}"
+                    alt="{{ $user->name . ' image' }}"
                     class="w-23 h-20 md:w-80 md:h-80 rounded-full mx-auto mt-4 object-cover object-top"
                   />
                 </div>
@@ -162,74 +173,18 @@
               Teknologi dan tools yang saya kuasai
             </p>
           </div>
-          <div class="grid md:grid-cols-4 gap-8">
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-php-plain"></i>
-              <span>PHP</span>
+          @if($skills)
+            <div class="grid md:grid-cols-4 gap-8">
+              @foreach($skills as $skill)
+                <div class="group bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600 hover:border-primary hover:bg-gray-800/70 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl hover:shadow-primary/20 cursor-pointer">
+                  <div class="text-center">
+                    <i class="{{ $skill->icon }} text-4xl mb-4 text-gray-400 group-hover:text-primary transition-colors duration-300"></i>
+                    <span class="block text-lg font-medium text-gray-300 group-hover:text-white transition-colors duration-300">{{ ucfirst($skill->name) }}</span>
+                  </div>
+                </div>
+              @endforeach
             </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-html5-plain"></i>
-              <span class="px-1">HTML 5</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-css3-plain"></i>
-              <span class="px-1">CSS 3</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-javascript-plain"></i>
-              <span class="px-1">JavaScript</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-kotlin-plain"></i>
-              <span class="px-1">Kotlin</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-laravel-original"></i>
-              <span class="px-1">Laravel</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-jetpackcompose-plain-wordmark"></i>
-              <span class="px-1">Jetpack Compose</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-tailwindcss-original"></i>
-              <span class="px-1">Tailwind CSS</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-mysql-plain-wordmark"></i>
-              <span class="px-1">MySQL</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-django-plain"></i>
-              <span class="px-1">Django</span>
-            </div>
-            <div
-              class="bg-gray-900/50 p-8 rounded-2xl fade-in border-2 border-gray-600"
-            >
-              <i class="devicon-git-plain"></i>
-              <span class="px-1">Git</span>
-            </div>
-          </div>
+          @endif
         </div>
       </section>
       <section id="projects" class="min-h-screen">
@@ -241,101 +196,34 @@
             </p>
           </div>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-9">
-            <div
-              class="project-card rounded-2xl overflow-hidden border-2 border-gray-600 bg-gray-900/50 fade-in transition-all"
-            >
-              <div class="h-48 overflow-hidden">
-                <img
-                  src="{{ asset('image/ZeeScraper.png') }}"
-                  alt="Zee Scraper APP"
-                  class="w-full h-full content-center object-cover object-top hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div class="p-6">
-                <h3 class="text-2xl font-semibold mb-4">Zee Scraper APP</h3>
-                <p class="text-gray-400 mb-4">
-                  Aplikasi web yang secara otomatis men-scrape dan menampilkan
-                  informasi build karakter dari berbagai game, membantu pemain
-                  mengakses data penting secara cepat dan praktis.
-                </p>
-                <div class="flex flex-row gap-2">
-                  <div
-                    class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center"
-                  >
-                    <i class="devicon-kotlin-plain"></i>
+            @if($projects)
+              @foreach($projects as $project)
+                <div class="project-card rounded-2xl overflow-hidden border-2 border-gray-600 bg-gray-900/50 fade-in transition-all">
+                  <div class="h-48 overflow-hidden">
+                    <img
+                      src="{{ asset($project->image) }}"
+                      alt="{{ $project->name . '_image' }}"
+                      class="w-full h-full content-center object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
-                  <div
-                    class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center"
-                  >
-                    <i class="devicon-jetpackcompose-plain-wordmark"></i>
+                  <div class="p-6">
+                    <h3 class="text-2xl font-semibold mb-4">{{ $project->name }}</h3>
+                    <p class="text-gray-400 mb-4">
+                      {{ $project->description }}
+                    </p>
+                    <div class="flex flex-row gap-2">
+                      @if($project->tech_stack && count($project->tech_stack) > 0)
+                        @foreach($project->tech_stack as $tech)
+                          <div class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center">
+                            <i class="{{ $tech }}"></i>
+                          </div>
+                        @endforeach
+                      @endif
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div
-              class="project-card rounded-2xl overflow-hidden border-2 border-gray-600 bg-gray-900/50 fade-in transition-all"
-            >
-              <div class="h-48 overflow-hidden">
-                <img
-                  src="{{ asset('image/Telkom.png') }}"
-                  alt="Arnet Dashboard Web"
-                  class="w-full h-full content-center object-cover object-top hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div class="p-6">
-                <h3 class="text-2xl font-semibold mb-4">Arnet Dashboard Web</h3>
-                <p class="text-gray-400 mb-4">
-                  Aplikasi web internal yang dikembangkan di Telkom Indonesia
-                  untuk pengumpulan dan visualisasi data agar dapat diakses oleh
-                  karyawan secara efisien.
-                </p>
-                <div class="flex flex-row gap-2">
-                  <div
-                    class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center"
-                  >
-                    <i class="devicon-php-plain"></i>
-                  </div>
-                  <div
-                    class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center"
-                  >
-                    <i class="devicon-laravel-plain"></i>
-                  </div>
-                  <div
-                    class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center"
-                  >
-                    <i class="devicon-bootstrap-plain"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="project-card rounded-2xl overflow-hidden border-2 border-gray-600 bg-gray-900/50 fade-in transition-all"
-            >
-              <div class="h-48 overflow-hidden">
-                <img
-                  src="{{ asset('image/MinatkuApp.png') }}"
-                  alt="Minatku APP"
-                  class="w-full h-full content-center object-cover object-top hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div class="p-6">
-                <h3 class="text-2xl font-semibold mb-4">Minatku APP</h3>
-                <p class="text-gray-400 mb-4">
-                  MinatKu adalah aplikasi yang dibuat untuk memenuhi proyek
-                  capstone dalam program Bangkit. Proyek ini dikerjakan oleh 7
-                  peserta dari Bangkit 2023 Batch 2, dengan 3 dari Machine
-                  Learning, 2 dari Mobile Development, dan 2 dari Cloud
-                  Computing.
-                </p>
-                <div class="flex flex-row gap-2">
-                  <div
-                    class="bg-gray-800 p-2 rounded-2xl w-8 h-8 flex items-center justify-center"
-                  >
-                    <i class="devicon-kotlin-plain"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
+              @endforeach
+            @endif
           </div>
         </div>
       </section>

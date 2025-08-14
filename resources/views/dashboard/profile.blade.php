@@ -5,6 +5,43 @@
 @section('page-description', 'Change Portfolio Information')
 
 @section('content')
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6 flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    <!-- Error Message -->
+    @if(session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">{{ session('error') }}</span>
+        </div>
+    @endif
+
+    <!-- Validation Errors -->
+    @if($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-medium">Please fix the following errors:</span>
+            </div>
+            <ul class="list-disc list-inside ml-7">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <section id="profile-data">
         <!-- Profile Information Preview -->
         <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 mb-6">
@@ -19,7 +56,7 @@
                 <!-- Profile Picture & Basic Info -->
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name ?? 'John+Doe') }}&background=3b82f6&color=ffffff&size=80" 
+                        <img src="{{ asset(Auth::user()->profile_image) }}" 
                              alt="Profile Picture" class="w-20 h-20 rounded-full object-cover border-2 border-gray-200">
                     </div>
                     <div class="flex-1 min-w-0">
@@ -35,7 +72,7 @@
                     <div class="space-y-1">
                         <div class="flex items-center text-sm">
                             <i class="ri-github-fill text-gray-800 w-4 h-4 mr-2"></i>
-                            <span class="text-gray-600">{{ Auth::user()->github_link ?? 'Not set' }}</span>
+                            <span class="text-gray-600">{{ Auth::user()->git_link ?? 'Not set' }}</span>
                         </div>
                         <div class="flex items-center text-sm">
                             <i class="ri-instagram-fill text-pink-500 w-4 h-4 mr-2"></i>
@@ -59,28 +96,16 @@
                 </button>
             </div>
             
-            @php
-                // Dummy skills data - replace with actual data from database
-                $skills = [
-                    ['id' => 1, 'name' => 'Laravel', 'icon' => 'ri-code-s-slash-line'],
-                    ['id' => 2, 'name' => 'PHP', 'icon' => 'ri-file-code-line'],
-                    ['id' => 3, 'name' => 'JavaScript', 'icon' => 'ri-javascript-line'],
-                    ['id' => 4, 'name' => 'MySQL', 'icon' => 'ri-database-2-line'],
-                    ['id' => 5, 'name' => 'Tailwind CSS', 'icon' => 'ri-css3-line'],
-                    ['id' => 6, 'name' => 'Vue.js', 'icon' => 'ri-vuejs-line']
-                ];
-            @endphp
-            
             @if(count($skills) > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     @foreach($skills as $skill)
                         <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg border hover:bg-gray-100 transition duration-200">
                             <div class="flex items-center">
-                                <i class="{{ $skill['icon'] }} text-blue-600 mr-2"></i>
-                                <span class="text-sm font-medium text-gray-700">{{ $skill['name'] }}</span>
+                                <i class="{{ $skill->icon }} text-blue-600 mr-2"></i>
+                                <span class="text-sm font-medium text-gray-700">{{ $skill->name }}</span>
                             </div>
                             <form action="" method="POST" class="inline-block delete-form" 
-                                  data-item-name="{{ $skill['name'] }}" data-item-type="skill">
+                                  data-item-name="{{ $skill->name }}" data-item-type="skill">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
@@ -108,52 +133,34 @@
                     <i class="ri-add-line mr-1"></i>Add Project
                 </button>
             </div>
-          
-            @php
-                // Dummy projects data - replace with actual data from database
-                $projects = [
-                    [
-                        'id' => 1,
-                        'name' => 'E-Commerce Website',
-                        'description' => 'Full-stack e-commerce platform with payment integration',
-                        'link' => 'https://github.com/username/ecommerce',
-                        'image' => 'https://via.placeholder.com/300x200/3b82f6/ffffff?text=E-Commerce',
-                        'tech_stack' => ['devicon-vuejs-plain', 'devicon-tailwindcss-plain']
-                    ],
-                    [
-                        'id' => 2,
-                        'name' => 'Task Management App',
-                        'description' => 'React-based task management application with real-time updates',
-                        'link' => 'https://github.com/username/taskmanager',
-                        'image' => 'https://via.placeholder.com/300x200/10b981/ffffff?text=Task+Manager',
-                        'tech_stack' => ['devicon-react-original', 'devicon-nodejs-plain']
-                    ],
-                    [
-                        'id' => 3,
-                        'name' => 'Weather Dashboard',
-                        'description' => 'Weather forecast dashboard using external APIs forecast dashboard using external APIs',
-                        'link' => 'https://github.com/username/weather',
-                        'image' => 'https://via.placeholder.com/300x200/f59e0b/ffffff?text=Weather+App',
-                        'tech_stack' => ['devicon-kotlin-plain', 'devicon-laravel-plain', 'devicon-vuejs-plain', 'devicon-tailwindcss-plain']
-                    ]
-                ];
-            @endphp
 
             @if(count($projects) > 0)
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($projects as $project)
                         <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition duration-200 relative flex flex-col">
-                            <img src="{{ $project['image'] }}" alt="{{ $project['name'] }}" class="w-full h-32 object-cover">
+                            <img src="{{ asset($project->image) }}" alt="{{ $project->name }}" class="w-full h-32 object-cover">
                             <div class="p-4 flex flex-col flex-grow">
-                                <h4 class="font-medium text-gray-900 mb-2">{{ $project['name'] }}</h4>
-                                <p class="text-gray-600 text-sm mb-3 line-clamp-2 flex-grow">{{ $project['description'] }}</p>
+                                <h4 class="font-medium text-gray-900 mb-2">{{ $project->name }}</h4>
+                                <p class="text-gray-600 text-sm mb-3 line-clamp-2 flex-grow">{{ $project->description }}</p>
                                 <div class="flex justify-between items-center mt-auto">
-                                    <a href="{{ $project['link'] }}" target="_blank" 
+                                    <a href="{{ $project->link }}" target="_blank" 
                                     class="inline-flex items-center text-blue-600 hover:text-blue-800 text-sm font-medium">
                                         <i class="ri-external-link-line mr-1"></i>
                                         View Project
                                     </a>
-                                    <form action="" method="POST" class="inline-block delete-form" 
+                                    <div class="flex flex-col">
+                                        <form action="" method="POST" class="inline-block delete-form" 
+                                            data-item-name="{{ $project['name'] }}" data-item-type="project">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" 
+                                                    class="flex items-center justify-center w-6 h-6 text-red-500 hover:text-red-700 transition duration-200 rounded hover:bg-red-50"
+                                                    title="Delete project">
+                                                <i class="ri-delete-bin-line text-xs"></i>
+                                            </button>
+                                        </form>
+
+                                        <form action="" method="POST" class="inline-block delete-form" 
                                         data-item-name="{{ $project['name'] }}" data-item-type="project">
                                         @csrf
                                         @method('DELETE')
@@ -163,6 +170,8 @@
                                             <i class="ri-delete-bin-line text-xs"></i>
                                         </button>
                                     </form>
+                                    </div>
+                                    
                                 </div>
                                 @if(isset($project['tech_stack']) && count($project['tech_stack']) > 0)
                                     <div class="mt-2 flex flex-wrap gap-1">
@@ -204,9 +213,8 @@
                 <p class="text-gray-600">Update your personal details and social media links</p>
             </div>
             
-            <form id="profile-form" action="" method="post" enctype="multipart/form-data" class="space-y-6">
+            <form id="profile-form" action="{{ route('profile.store') }}" method="post" enctype="multipart/form-data" class="space-y-6">
                 @csrf
-                @method('PUT')
                 
                 <!-- Name and Description Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -219,21 +227,21 @@
                                 Full Name
                             </span>
                         </label>
-                        <input type="text" id="name" name="name" 
+                        <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
                             placeholder="Enter your full name">
                     </div>
                     
                     <div class="space-y-2">
-                        <label class="block text-sm font-semibold text-gray-700" for="desc">
+                        <label class="block text-sm font-semibold text-gray-700" for="bio">
                             <span class="flex items-center">
                                 <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                                 </svg>
-                                Description
+                                Bio
                             </span>
                         </label>
-                        <input type="text" id="desc" name="desc" 
+                        <input type="text" id="bio" name="bio"  value="{{ old('bio', $user->bio) }}"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
                             placeholder="Brief description about yourself">
                     </div>
@@ -241,7 +249,7 @@
                 
                 <!-- Profile Image Upload -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-semibold text-gray-700" for="image_profile">
+                    <label class="block text-sm font-semibold text-gray-700" for="profile_image">
                         <span class="flex items-center">
                             <svg class="w-4 h-4 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -250,7 +258,7 @@
                         </span>
                     </label>
                     <div class="flex items-center justify-center w-full">
-                        <label for="image_profile" class="relative flex flex-col items-center justify-center w-full min-h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition duration-200 overflow-hidden">
+                        <label for="profile_image" class="relative flex flex-col items-center justify-center w-full min-h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition duration-200 overflow-hidden">
                             <div id="profile_upload_area" class="flex flex-col items-center justify-center pt-5 pb-6">
                                 <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
@@ -259,7 +267,7 @@
                                 <p class="text-xs text-gray-500">PNG, JPG or JPEG (MAX. 2MB)</p>
                             </div>
                             <img id="profile_preview" class="hidden absolute inset-0 w-full h-full object-contain bg-white rounded-lg" alt="Profile preview">
-                            <input type="file" accept="image/jpeg,image/png,image/jpg" id="image_profile" name="image_profile" class="hidden">
+                            <input type="file" accept="image/jpeg,image/png,image/jpg" id="profile_image" name="profile_image" class="hidden">
                         </label>
                     </div>
                     <div id="profile_preview_info" class="hidden">
@@ -292,7 +300,7 @@
                                     Instagram
                                 </span>
                             </label>
-                            <input type="url" id="insta_link" name="insta_link" 
+                            <input type="url" id="insta_link" name="insta_link" value="{{ old('insta_link', $user->insta_link) }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-pink-500 focus:border-pink-500 hover:border-gray-400"
                                 placeholder="https://instagram.com/username">
                         </div>
@@ -307,7 +315,7 @@
                                     GitHub
                                 </span>
                             </label>
-                            <input type="url" id="github_link" name="github_link" 
+                            <input type="url" id="github_link" name="github_link" value="{{ old('github_link', $user->git_link) }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-gray-500 focus:border-gray-500 hover:border-gray-400"
                                 placeholder="https://github.com/username">
                         </div>
@@ -322,7 +330,7 @@
                                     LinkedIn
                                 </span>
                             </label>
-                            <input type="url" id="linkedin_link" name="linkedin_link" 
+                            <input type="url" id="linkedin_link" name="linkedin_link" value="{{ old('linkedin_link', $user->linkedin_link) }}"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
                                 placeholder="https://linkedin.com/in/username">
                         </div>
@@ -532,7 +540,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // Profile Image Preview
-    const profileInput = document.getElementById('image_profile');
+    const profileInput = document.getElementById('profile_image');
     const profilePreview = document.getElementById('profile_preview');
     const profileUploadArea = document.getElementById('profile_upload_area');
     const profilePreviewInfo = document.getElementById('profile_preview_info');
@@ -613,7 +621,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function clearProfilePreview() {
-    const profileInput = document.getElementById('image_profile');
+    const profileInput = document.getElementById('profile_image');
     const profilePreview = document.getElementById('profile_preview');
     const profileUploadArea = document.getElementById('profile_upload_area');
     const profilePreviewInfo = document.getElementById('profile_preview_info');
@@ -682,5 +690,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Auto-hide success/error messages after 5 seconds
+    setTimeout(function() {
+        const successAlert = document.querySelector('.bg-green-100');
+        const errorAlert = document.querySelector('.bg-red-100');
+        
+        if (successAlert) {
+            successAlert.style.transition = 'opacity 0.5s ease-out';
+            successAlert.style.opacity = '0';
+            setTimeout(() => successAlert.remove(), 500);
+        }
+        
+        if (errorAlert) {
+            errorAlert.style.transition = 'opacity 0.5s ease-out';
+            errorAlert.style.opacity = '0';
+            setTimeout(() => errorAlert.remove(), 500);
+        }
+    }, 5000);
 });
 </script>

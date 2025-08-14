@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Project extends Model
+class Skill extends Model
 {
     use HasFactory;
 
@@ -15,20 +15,12 @@ class Project extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = [  
+    protected $fillable = [ 
         'name',
-        'image',
-        'description',
-        'link',
-        'tech_stack',
+        'icon',
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
+     * Get the user that owns the skill.
      */
-    protected $casts = [
-        'tech_stack' => 'array',
-    ];
 }
