@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WebController;
 use App\Http\Middleware\CheckLogin;
+use App\Http\Controllers\ApiController;
 
 Route::get('/', [WebController::class, 'index']);
 
@@ -51,8 +52,12 @@ Route::post('/logout', function (Illuminate\Http\Request $request) {
     return redirect('/menu')->with('success', 'Logout successful!');
 })->name('logout');
 
-
-
 Route::get('/menu', function () {
     return view('menu');
 })->name('menu');
+
+//API Routes
+Route::prefix('api')->group(function () {
+    Route::get('/index', [ApiController::class, 'index']);
+});
+

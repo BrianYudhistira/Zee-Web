@@ -3,11 +3,14 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Portfolio;
 use App\Models\Project;
 use App\Models\Skill;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\zzz_char;
+use App\Models\zzz_wengine;
+use App\Models\zzz_diskdrive;
+use App\Models\zzz_bestdiskdrivestat;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Create admin user with portfolio data embedded
-        $user = User::create([
+        User::create([
             'name' => 'Brian Yudhistira',
             'email' => 'brian@example.com',
             'password' => bcrypt('password'),
@@ -98,5 +101,36 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
             // No portfolio fields for guests
         ]);
+        
+        zzz_char::create([
+            'name' => 'Alice Thymefield',
+            'link' => 'https://www.prydwen.gg/zenless/characters/alice',
+            'image' => 'https://www.prydwen.gg/static/fe62704be03765b9c6387bd8bbda9bc9/b26e2/37_card.webp',
+            'tier' => 'S',
+            'element' => 'unknown',
+            'element_picture' => 'unknown'
+        ]);
+
+        zzz_wengine::create([
+            'zzz_char_id' => 1,
+            'build_name' => 'Sample Build',
+            'w_engine_picture' => 'https://www.example.com/sample_wengine.webp',
+            'detail' => 'This is a sample detail for the weapon engine.'
+        ]);
+
+        zzz_diskdrive::create([
+            'zzz_char_id' => 1,
+            'name' => 'Sample Disk Drive',
+            'detail_2pc' => 'This is a sample detail for 2-piece set.',
+            'detail_4pc' => 'This is a sample detail for 4-piece set.'
+        ]);
+
+        zzz_bestdiskdrivestat::create([
+            'zzz_char_id' => 1,
+            'disk_number' => '1',
+            'substats' => 'Sample substats',
+            'endgame_stats' => 'Sample endgame stats'
+        ]);
+
     }
 }
