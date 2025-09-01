@@ -219,17 +219,4 @@ class PortfolioController extends Controller
         $skill->delete();
         return redirect()->route('profile')->with('success', 'Skill deleted successfully!');
     }
-
-    /**
-     * Show portfolio form for adding projects and skills.
-     */
-    public function manage()
-    {
-        $user = Auth::user();
-        $portfolio = Portfolio::with(['projects', 'skills'])
-                              ->where('user_id', $user->id)
-                              ->first();
-        
-        return view('portfolio.manage', compact('user', 'portfolio'));
-    }
 }

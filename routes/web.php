@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WebController;
 use App\Http\Middleware\CheckLogin;
 use App\Http\Controllers\ApiController;
+use App\Http\Middleware\CheckApiToken;
 
 Route::get('/', [WebController::class, 'index']);
 
@@ -58,6 +59,9 @@ Route::get('/menu', function () {
 
 //API Routes
 Route::prefix('api')->group(function () {
-    Route::get('/index', [ApiController::class, 'index']);
+    Route::middleware(CheckApiToken::class)->group(function () {
+        // Public routes (tanpa token)
+        Route::get('/characters', [ApiController::class, 'index']);
+    });
 });
 

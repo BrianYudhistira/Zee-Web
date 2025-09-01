@@ -10,7 +10,7 @@ class zzz_wengine extends Model
     use HasFactory;
     
     protected $fillable = [
-        'characters_id',
+        'zzz_char_id',
         'build_name',
         'w_engine_picture',
         'detail'
@@ -18,6 +18,6 @@ class zzz_wengine extends Model
 
     public function zzz_char()
     {
-        return $this->belongsTo(zzz_char::class, 'characters_id');
+        return $this->belongsTo(zzz_char::class, 'zzz_char_id');
     }
 }

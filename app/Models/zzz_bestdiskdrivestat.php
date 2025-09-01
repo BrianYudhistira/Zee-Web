@@ -10,7 +10,7 @@ class zzz_bestdiskdrivestat extends Model
     use HasFactory;
 
     protected $fillable = [
-        'characters_id',
+        'zzz_char_id',
         'disk_number',
         'substats',
         'endgame_stats'
@@ -18,6 +18,6 @@ class zzz_bestdiskdrivestat extends Model
 
     public function zzz_char()
     {
-        return $this->belongsTo(zzz_char::class, 'characters_id');
+        return $this->belongsTo(zzz_char::class, 'zzz_char_id');
     }
 }
