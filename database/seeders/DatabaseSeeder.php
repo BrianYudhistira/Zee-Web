@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Project;
 use App\Models\Skill;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\zzz_char;
 use App\Models\zzz_wengine;
@@ -31,6 +30,7 @@ class DatabaseSeeder extends Seeder
             'insta_link' => 'https://www.instagram.com/brian.yudhistira1',
             'git_link' => 'https://github.com/BrianYudhistira',
             'linkedin_link' => 'https://www.linkedin.com/in/brian-yudhistira-95a62b221',
+            'api_token' => 'zee-web-token-1221e821398012'
         ]);
 
         // Create sample projects (directly linked to user)

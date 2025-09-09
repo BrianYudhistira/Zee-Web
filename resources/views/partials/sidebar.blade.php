@@ -37,20 +37,15 @@
             <i class="ri-user-line"></i>
             <span class="font-medium">Profile</span>
         </a>
-        
-        <a href="/dashboard" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('dashboard') ? 'bg-blue-600 text-white' : '' }}">
-            <i class="ri-dashboard-line"></i>
-            <span class="font-medium">Dashboard</span>
-        </a>
-        
+
         <a href="/manage" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('manage') ? 'bg-blue-600 text-white' : '' }}">
-            <i class="ri-search-line"></i>
+            <i class="ri-user-settings-line"></i>
             <span class="font-medium">Manage User</span>
         </a>
-        
-        <a href="/results" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('results') ? 'bg-blue-600 text-white' : '' }}">
-            <i class="ri-file-list-3-line"></i>
-            <span class="font-medium">Results</span>
+
+        <a href="/data_scraper" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('data_scraper') ? 'bg-blue-600 text-white' : '' }}">
+            <i class="ri-database-2-line"></i>
+            <span class="font-medium">Database Scraper</span>
         </a>
         
         <a href="/settings" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('settings') ? 'bg-blue-600 text-white' : '' }}">

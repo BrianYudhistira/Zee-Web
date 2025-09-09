@@ -56,13 +56,35 @@
                 <!-- Profile Picture & Basic Info -->
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0">
+                        @if(Auth::user()->profile_image)
                         <img src="{{ asset(Auth::user()->profile_image) }}" 
                              alt="Profile Picture" class="w-20 h-20 rounded-full object-cover border-2 border-gray-200">
+                        @else
+                            <div class="w-20 h-20 rounded-full border-2 border-gray-200 flex items-center justify-center">
+                                <span class="text-gray-400">No Image</span>
+                            </div>
+                        @endif
                     </div>
                     <div class="flex-1 min-w-0">
                         <h4 class="text-lg font-medium text-gray-900 mb-1">{{ Auth::user()->name ?? 'John Doe' }}</h4>
                         <p class="text-gray-600 text-sm mb-2">{{ Auth::user()->description ?? 'Web Developer & Enthusiast' }}</p>
                         <p class="text-gray-500 text-xs">{{ Auth::user()->email ?? 'john.doe@example.com' }}</p>
+                        <div class="flex items-center text-gray-500 text-xs mt-1">
+                            <span class="mr-2">API Token:</span>
+                            <span class="font-mono mr-2" id="api-token-display">
+                                @if(Auth::user()->api_token)
+                                    <span id="token-hidden">{{ str_repeat('•', 20) }}</span>
+                                    <span id="token-visible" style="display: none;">{{ Auth::user()->api_token }}</span>
+                                @else
+                                    Not set 
+                                @endif
+                            </span>
+                            @if(Auth::user()->api_token)
+                                <button type="button" id="toggle-token" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" title="Show/Hide Token">
+                                    <i id="eye-icon" class="ri-eye-line text-sm"></i>
+                                </button>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 
@@ -225,6 +247,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // API Token toggle functionality
+    const toggleButton = document.getElementById('toggle-token');
+    const eyeIcon = document.getElementById('eye-icon');
+    const tokenHidden = document.getElementById('token-hidden');
+    const tokenVisible = document.getElementById('token-visible');
+    
+    if (toggleButton && tokenHidden && tokenVisible) {
+        toggleButton.addEventListener('click', function() {
+            if (tokenHidden.style.display === 'none') {
+                // Show hidden, hide visible
+                tokenHidden.style.display = 'inline';
+                tokenVisible.style.display = 'none';
+                eyeIcon.className = 'ri-eye-line text-sm';
+                toggleButton.title = 'Show Token';
+            } else {
+                // Show visible, hide hidden
+                tokenHidden.style.display = 'none';
+                tokenVisible.style.display = 'inline';
+                eyeIcon.className = 'ri-eye-off-line text-sm';
+                toggleButton.title = 'Hide Token';
+            }
+        });
+    }
 
     // Auto-hide success/error messages after 5 seconds
     setTimeout(function() {

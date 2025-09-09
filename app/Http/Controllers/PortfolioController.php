@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Portfolio;
 use App\Models\Project;
 use App\Models\Skill;
 use App\Models\User;
@@ -61,7 +60,7 @@ class PortfolioController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'desc' => 'nullable|string|max:500',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'bio' => 'nullable|string|max:500',
             'insta_link' => 'nullable|url',
             'github_link' => 'nullable|url',
@@ -81,20 +80,17 @@ class PortfolioController extends Controller
         ];
 
         if ($request->hasFile('profile_image')) {
-            // Delete old profile image if exists
-            if (!empty($user->profile_image)) {
-                $oldImagePath = public_path($user->profile_image);
-                if (File::exists($oldImagePath)) {
-                    File::delete($oldImagePath);
-                }
-            }
-            
+            // Delete old image if exists
+            File::delete(public_path($user->profile_image)); 
             $image = $request->file('profile_image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageName = 'profile_' . time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('image/profile_image'), $imageName);
             $updateData['profile_image'] = 'image/profile_image/' . $imageName;
         }
-
+        else {
+            File::delete(public_path($user->profile_image));
+            $updateData['profile_image'] = null;
+        }
         // Update user profile
         User::where('id', $user->id)->update($updateData);
 
@@ -117,7 +113,7 @@ class PortfolioController extends Controller
         
         if($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageName = 'project_' . time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('image/projects'), $imageName);
             $imagePath = 'image/projects/' . $imageName;
         }
@@ -199,7 +195,7 @@ class PortfolioController extends Controller
             'icon' => $request->icon,
         ]);
 
-        return redirect()->back()->with('success', 'Skill updated successfully!');
+        return redirect()->route('profile')->with('success', 'Skill updated successfully!');
     }
 
     /**

@@ -28,6 +28,7 @@ class User extends Authenticatable
         'insta_link',
         'git_link',
         'linkedin_link',
+        'api_token'
     ];
 
     /**

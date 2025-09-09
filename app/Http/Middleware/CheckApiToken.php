@@ -43,7 +43,8 @@ class CheckApiToken
         $validTokens = [
             'zee-web-admin-token-2025',
             'zee-scraper-api-key',
-            'brian-yudhistira-token'
+            'brian-yudhistira-token',
+            'zee-web-token-1221e821398012'
         ];
 
         if (in_array($token, $validTokens)) {

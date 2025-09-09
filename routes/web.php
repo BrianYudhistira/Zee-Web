@@ -5,8 +5,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\WebController;
 use App\Http\Middleware\CheckLogin;
-use App\Http\Controllers\ApiController;
-use App\Http\Middleware\CheckApiToken;
 
 Route::get('/', [WebController::class, 'index']);
 
@@ -18,8 +16,7 @@ Route::post('/login', [WebController::class, 'signin'])->name('signin');
 Route::get('/register', [WebController::class, 'register']);
 Route::post('/register', [WebController::class, 'signup'])->name('signup');
 
-Route::get('/dashboard', [WebController::class, 'dashboard'])->middleware(CheckLogin::class);
-Route::post('/profile_update', [PortfolioController::class, 'storeProfile'])->middleware(CheckLogin::class)->name('profile.store');
+Route::get('/data_scraper', [WebController::class, 'dashboard'])->middleware(CheckLogin::class);
 
 //Profile Update Form
 Route::get('/profile_form', [PortfolioController::class, 'profileForm'])->middleware(CheckLogin::class)->name('profile.form');
@@ -56,12 +53,3 @@ Route::post('/logout', function (Illuminate\Http\Request $request) {
 Route::get('/menu', function () {
     return view('menu');
 })->name('menu');
-
-//API Routes
-Route::prefix('api')->group(function () {
-    Route::middleware(CheckApiToken::class)->group(function () {
-        // Public routes (tanpa token)
-        Route::get('/characters', [ApiController::class, 'index']);
-    });
-});
-
