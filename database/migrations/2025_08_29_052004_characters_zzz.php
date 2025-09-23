@@ -47,6 +47,7 @@ return new class extends Migration
             $table->string('build_s');
             $table->string('w_engine_picture');
             $table->string('detail');
+            $table->string('rarity');
             $table->timestamps();
         }); 
     }

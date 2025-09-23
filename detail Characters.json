@@ -4,43 +4,50 @@
             "Build": "Riot Suppressor Mark VI",
             "Build S": "(S1)",
             "W Engine Pict": "https://www.prydwen.gg/static/0c433646324547c30e58783e9b1353b2/d1e3d/zzz_Riot_Suppressor_Mark_VI.webp",
-            "detail": "Zhu Yuan's Signature W-Engine is an engine for Ether DPS characters with a focus on dealing a large amount of their damage through Basic Attack. The bonuses of this Engine are simple but effective and for a character that can take advantage of all of them a massive damage boost making it likely one of their best options."
+            "detail": "Zhu Yuan's Signature W-Engine is an engine for Ether DPS characters with a focus on dealing a large amount of their damage through Basic Attack. The bonuses of this Engine are simple but effective and for a character that can take advantage of all of them a massive damage boost making it likely one of their best options.",
+            "rarity": "Unknown"
         },
         {
             "Build": "The Brimstone",
             "Build S": "(S1)",
             "W Engine Pict": "https://www.prydwen.gg/static/8cd2e05597902c0ef48a793761d8b863/d1e3d/zzz_The_Brimstone.webp",
-            "detail": "Soldier 11's Signature W-Engine and a good choice for any character with a focus on using a lot of Basic Attacks or even just a few long lasting ones. The catch is each buff stack has its own duration and only 1 buff can be gained every 0.5 seconds, making maintaining max stacks of this buff require constant Basic Attacks."
+            "detail": "Soldier 11's Signature W-Engine and a good choice for any character with a focus on using a lot of Basic Attacks or even just a few long lasting ones. The catch is each buff stack has its own duration and only 1 buff can be gained every 0.5 seconds, making maintaining max stacks of this buff require constant Basic Attacks.",
+            "rarity": "Unknown"
         },
         {
             "Build": "Zanshin Herb Case",
             "Build S": "(S1)",
             "W Engine Pict": "https://www.prydwen.gg/static/969d585be63b72eaf22b84fdaa3609da/d1e3d/zzz_Zanshin_Herb_Case.webp",
-            "detail": "A solid all around generic option thanks to its close to permanent uptime of 20% CRIT RATE and always active 45% CRIT DMG, alongside its high base ATK."
+            "detail": "A solid all around generic option thanks to its close to permanent uptime of 20% CRIT RATE and always active 45% CRIT DMG, alongside its high base ATK.",
+            "rarity": "Unknown"
         },
         {
             "Build": "Starlight Engine",
-            "Build S": "(S1)",
+            "Build S": "(S5)",
             "W Engine Pict": "https://www.prydwen.gg/static/e676208d15ca617a242f40c5a310d08a/acb7c/Starlight_Engine.png",
-            "detail": "A solid all-around Free To Play accessible option for all Attack Agents. Grants 25% unconditional Standard Attack and a further 19.2% (At S5) Combat Attack buff after performing a Dodge Counter or Quick Assist lasting 12 seconds. This buff is reasonably easy for all Attack Agents to achieve in both their standard and burst rotations, assuming a Support character is present on the team."
+            "detail": "A solid all-around Free To Play accessible option for all Attack Agents. Grants 25% unconditional Standard Attack and a further 19.2% (At S5) Combat Attack buff after performing a Dodge Counter or Quick Assist lasting 12 seconds. This buff is reasonably easy for all Attack Agents to achieve in both their standard and burst rotations, assuming a Support character is present on the team.",
+            "rarity": "Unknown"
         },
         {
             "Build": "Marcato Desire",
-            "Build S": "(S1)",
+            "Build S": "(S5)",
             "W Engine Pict": "https://www.prydwen.gg/static/55b69c888349bd70444d873bab0bd06d/d1e3d/zzz_Marcato_Desire.webp",
-            "detail": "Reasonable option for CRIT scaling agents playing in teams capable of applying Anomaly semi-consistently to trigger and maintain its secondary bonus effect a decent amount of the time."
+            "detail": "Reasonable option for CRIT scaling agents playing in teams capable of applying Anomaly semi-consistently to trigger and maintain its secondary bonus effect a decent amount of the time.",
+            "rarity": "Unknown"
         },
         {
             "Build": "Gilded Blossom",
-            "Build S": "(S1)",
+            "Build S": "(S5)",
             "W Engine Pict": "https://www.prydwen.gg/static/e6312521b9aded579d6358b53dbe16f1/d1e3d/zzz_Gilded_Blossom.webp",
-            "detail": "A weaker alternative to Starlight Engine that offers ATK% and increases the damage of EX Special attacks. Only use if you lack better W-Engines."
+            "detail": "A weaker alternative to Starlight Engine that offers ATK% and increases the damage of EX Special attacks. Only use if you lack better W-Engines.",
+            "rarity": "Unknown"
         },
         {
             "Build": "Cannon Rotor",
-            "Build S": "(S1)",
+            "Build S": "(S5)",
             "W Engine Pict": "https://www.prydwen.gg/static/28127ed5d3e632eb9fc6e975fff7f646/acb7c/Cannon_Rotor.png",
-            "detail": "The battle pass W-engine - an expensive engine to acquire which while incredibly consistent is often weaker than other W-Engines. The main issue with the on Crit trigger ability is that the damage is Physical and cannot CRIT meaning for non-physical characters you'll be losing all elemental DMG% boosts on this damage and for all characters not CRITing is a big downside making the damage from this unimpactful."
+            "detail": "The battle pass W-engine - an expensive engine to acquire which while incredibly consistent is often weaker than other W-Engines. The main issue with the on Crit trigger ability is that the damage is Physical and cannot CRIT meaning for non-physical characters you'll be losing all elemental DMG% boosts on this damage and for all characters not CRITing is a big downside making the damage from this unimpactful.",
+            "rarity": "Unknown"
         }
     ],
     "Disk_Drive": [

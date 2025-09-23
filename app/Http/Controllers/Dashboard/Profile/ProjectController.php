@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\DashboardsController;
+namespace App\Http\Controllers\Dashboard\Profile;
 
 use App\Models\Project;
 use Illuminate\Http\Request;

@@ -101,7 +101,7 @@
                                 <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
                                 <p class="text-xs text-gray-500">PNG, JPG or JPEG (MAX. 5MB)</p>
                             </div>
-                            <img id="profile_preview" src="{{ $user->profile_image ? asset($user->profile_image) : '' }}" class="{{ $user->profile_image ? '' : 'hidden' }} absolute inset-0 w-full h-full object-contain bg-white rounded-lg" alt="Profile preview">
+                            <img id="profile_preview" src="{{ $user->profile_image ? $user->profile_image_url : '' }}" class="{{ $user->profile_image ? '' : 'hidden' }} absolute inset-0 w-full h-full object-contain bg-white rounded-lg" alt="Profile preview">
                             <input type="file" accept="image/jpeg,image/png,image/jpg" id="profile_image" name="profile_image" class="hidden">
                         </label>
                     </div>

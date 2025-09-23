@@ -14,7 +14,8 @@ class zzz_wengine extends Model
         'build_name',
         'build_s',
         'w_engine_picture',
-        'detail'
+        'detail',
+        'rarity'
     ];
 
     public function zzz_char()

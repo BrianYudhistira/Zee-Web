@@ -2,13 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\DashboardsController\PortfolioController;
-use App\Http\Controllers\DashboardsController\ProfileController;
-use App\Http\Controllers\DashboardsController\ProjectController;
-use App\Http\Controllers\DashboardsController\SkillController;
+use App\Http\Middleware\CheckLogin;
+use App\Http\Controllers\Dashboard\Profile\PortfolioController;
+use App\Http\Controllers\Dashboard\Profile\ProfileController;
+use App\Http\Controllers\Dashboard\Profile\ProjectController;
+use App\Http\Controllers\Dashboard\Profile\SkillController;
+use App\Http\Controllers\ScraperController;
 
 use App\Http\Controllers\WebController;
-use App\Http\Middleware\CheckLogin;
+
 
 Route::get('/', [WebController::class, 'index']);
 
@@ -49,9 +51,9 @@ Route::prefix('dashboard')->group(function () {
             Route::delete('/skills_form/delete/{skill}', [SkillController::class, 'destroySkill'])->middleware(CheckLogin::class)->name('skills.destroy');
         });
     });
-    
-    Route::get('/data_scraper', [WebController::class, 'data_scraper'])->middleware(CheckLogin::class);
-    Route::get('/data_scraper/run', [App\Http\Controllers\ScraperController::class, 'scrapeSync'])->middleware(CheckLogin::class)->name('admin.scraper.run');
+
+    Route::get('/data_scraper', [ScraperController::class, 'index'])->middleware(CheckLogin::class);
+    Route::get('/data_scraper/run/{user}', [ScraperController::class, 'scrapeNow'])->middleware(CheckLogin::class)->name('admin.scraper.run');
 });
 
 //ZeeScraper Route
@@ -62,3 +64,13 @@ Route::get('/ZeeScraper', function () {
 Route::get('/menu', function () {
     return view('menu');
 })->name('menu');
+
+Route::get('/test', function () {
+    return view('emails.scraper-notification', [
+        'username' => 'Brian Yudhistira',
+        'status' => 'Completed',
+        'actionUrl' => url('/dashboard/data_scraper?tab=characters'),
+        'subject' => 'Data Scraping Process Completed',
+        'processType' => 'Character Data Scraping'
+    ]);
+})->name('test');

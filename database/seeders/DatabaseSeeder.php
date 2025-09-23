@@ -114,8 +114,10 @@ class DatabaseSeeder extends Seeder
         zzz_wengine::create([
             'zzz_char_id' => 1,
             'build_name' => 'Sample Build',
+            'build_s' => '(S2)',
             'w_engine_picture' => 'https://www.example.com/sample_wengine.webp',
-            'detail' => 'This is a sample detail for the weapon engine.'
+            'detail' => 'This is a sample detail for the weapon engine.',
+            'rarity' => 'S'
         ]);
 
         zzz_diskdrive::create([

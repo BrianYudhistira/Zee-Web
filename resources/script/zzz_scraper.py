@@ -162,6 +162,7 @@ class API():
                     "build_s": w.get("Build S", ""),
                     "w_engine_picture": w.get("W Engine Pict", ""),
                     "detail": w.get("detail", ""),
+                    "rarity": w.get("rarity", "Unknown"),
                     "created_at": now,
                     "updated_at": now
                 })
@@ -294,8 +295,8 @@ class API():
                 # Insert W-engines
                 for wengine in char_data['zzz_wengine']:
                     wengine_query = """
-                    INSERT INTO zzz_wengines (zzz_char_id, build_name, build_s, w_engine_picture, detail, created_at, updated_at)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO zzz_wengines (zzz_char_id, build_name, build_s, w_engine_picture, detail, rarity, created_at, updated_at)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                     """
                     wengine_values = (
                         char_id,
@@ -303,6 +304,7 @@ class API():
                         wengine['build_s'][:255],  # Truncate to 255 chars
                         wengine['w_engine_picture'][:500],  # Truncate to 500 chars
                         wengine['detail'][:255],  # Truncate to 255 chars
+                        wengine['rarity'][:10],  # Truncate to 10 chars
                         wengine['created_at'],
                         wengine['updated_at']
                     )
@@ -373,9 +375,18 @@ class API():
             w_engine = build_item.find('span', class_=lambda c: c and c.startswith('zzz-set-name'))
             w_engine_pict_tag = build_item.find('div', class_=lambda c: c and c.startswith('zzz-icon rarity'))
             build_text = w_engine.text.strip() if w_engine else ""
-            build_s = build.find('span', class_='cone-super')
+            build_s = build_item.find('span', class_='cone-super')
             w_engine_pict = None
             w_engine_pict_src = None
+            
+            # Extract rarity from w_engine class
+            rarity = "Unknown"
+            if w_engine:
+                class_list = w_engine.get('class', [])
+                for class_name in class_list:
+                    if class_name.startswith('zzz-set-name-rarity-'):
+                        rarity = class_name.split('-')[-1]  # Gets the last part after the last dash
+                        break
 
             # Use clean detail if available
             clean_detail = clean_details[i] if i < len(clean_details) else None
@@ -399,7 +410,8 @@ class API():
                                 "Build": build_text,
                                 "Build S": build_s_text,
                                 "W Engine Pict": self.base_url + w_engine_pict_src if w_engine_pict_src.startswith('/') else w_engine_pict_src,
-                                "detail": detail_text
+                                "detail": detail_text,
+                                "rarity": rarity
                             }
                             detail_data['W_engine'].append(build_entry)
                         else:
@@ -414,7 +426,8 @@ class API():
                                     "Build": build_text,
                                     "Build S": build_s_text,
                                     "W Engine Pict": self.base_url + w_engine_pict_src if w_engine_pict_src.startswith('/') else w_engine_pict_src,
-                                    "detail": detail_text
+                                    "detail": detail_text,
+                                    "rarity": rarity
                                 }
                                 detail_data['W_engine'].append(build_entry)
 

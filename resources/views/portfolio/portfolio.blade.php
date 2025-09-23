@@ -170,7 +170,7 @@
                   <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                   <div class="relative">
                     <img
-                      src="{{ asset($user->profile_image) }}"
+                      src="{{ $user->profile_image_url }}"
                       alt="{{ $user->name . ' image' }}"
                       class="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full mx-auto object-cover object-top shadow-2xl border-4 border-gray-800 group-hover:border-primary transition-all duration-300"
                     />
@@ -226,7 +226,7 @@
                 <div class="group project-card rounded-2xl overflow-hidden border border-gray-700/50 bg-gradient-to-br from-gray-900/80 to-gray-800/50 backdrop-blur-sm fade-in transition-all duration-500 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 transform hover:scale-[1.02] hover:-translate-y-1">
                   <div class="relative h-40 sm:h-48 overflow-hidden">
                     <img
-                      src="{{ storage_path($project->image) }}"
+                      src="{{ $project->image_url }}"
                       alt="{{ $project->name . '_image' }}"
                       loading="lazy"
                       class="w-full h-full object-cover object-top group-hover:scale-110 transition-transform duration-700"

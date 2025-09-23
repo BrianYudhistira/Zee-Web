@@ -468,10 +468,16 @@
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm ">
-                                            <span class="text-gray-900">
-                                                {{ $wengine->build_name ?? '-' }}
-                                            </span>
-                                            <span class="text-red-600">
+                                            @if($wengine->rarity == 'S')
+                                                <span class="text-yellow-600">
+                                                    {{ $wengine->build_name ?? '-' }}
+                                                </span>
+                                            @else
+                                                <span class="text-purple-900">
+                                                    {{ $wengine->build_name ?? '-' }}
+                                                </span>
+                                            @endif
+                                            <span class="text-gray-600">
                                                 {{ $wengine->build_s ?? '(S?)' }}
                                             </span>
                                         </td>
@@ -527,10 +533,18 @@
                                                      src="{{ $wengine->w_engine_picture}}" 
                                                      alt="W-Engine" loading="lazy">
                                             @endif
-                                            <span class="text-sm text-gray-600">{{ $wengine->build_name ?? 'No Build Name' }}</span>
+                                            @if($wengine->rarity == 'S')
+                                                <span class="text-sm text-yellow-600">{{ $wengine->build_name ?? 'No Build Name' }} 
+                                                    <span class="text-sm text-red-600">{{ $wengine->build_s ?? '(S?)' }}</span>
+                                                </span>
+                                            @else
+                                                <span class="text-sm text-purple-900">{{ $wengine->build_name ?? 'No Build Name' }} 
+                                                    <span class="text-sm text-red-600">{{ $wengine->build_s ?? '(S?)' }}</span>
+                                                </span>
+                                            @endif
                                         </div>
                                         @if($wengine->detail)
-                                        <p class="text-xs text-gray-500 mt-2 line-clamp-2">{{ $wengine->detail }}</p>
+                                            <p class="text-xs text-gray-500 mt-2 line-clamp-2">{{ $wengine->detail }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -615,10 +629,16 @@
                         {{ session('status') }}
                     </div>
                 @endif
+                @if(session('error'))
+                    <div id="status-message" class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                        {{ session('error') }}
+                    </div>
+                @endif
+                
                 <div id="content-stats" class="tab-content hidden">
                     <div class="flex flex-col sm:flex-row justify-between items-center sm:items-center mb-4 gap-3">
                         <h2 class="text-lg font-medium text-gray-900 text-center sm:text-left">Data Statistics</h2>
-                        <a href="{{ route('admin.scraper.run') }}" 
+                        <a href="{{ route('admin.scraper.run', $user) }}" 
                             class="px-3 py-1 bg-blue-600 text-white rounded-lg text-sm hover:bg-blue-700 transition-colors duration-200 inline-flex items-center gap-2 mx-auto sm:mx-0">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
