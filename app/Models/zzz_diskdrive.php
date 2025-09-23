@@ -20,4 +20,10 @@ class zzz_diskdrive extends Model
     {
         return $this->belongsTo(zzz_char::class, 'zzz_char_id');
     }
+    
+    // Alias for consistent naming
+    public function zzzChar()
+    {
+        return $this->zzz_char();
+    }
 }

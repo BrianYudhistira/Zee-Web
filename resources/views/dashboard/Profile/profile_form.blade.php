@@ -171,7 +171,32 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-14">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700" for="email">
+                                <i class="ri-mail-line"></i>
+                                Email Address
+                            </label>
+                            <div class="flex items-center space-x-4">
+                                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
+                                    placeholder="Enter your email address">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700" for="api_token">
+                                <i class="fas fa-key"></i>
+                                API Token
+                            </label>
+                            <div class="flex items-center space-x-4">
+                                <input type="text" id="api_token" name="api_token" value="{{ old('api_token', $user->api_token) }}"
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
+                                    placeholder="Enter your API token">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Submit Button -->
                 <div class="flex justify-end pt-6 border-t border-gray-200">
                     <button type="submit" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">

@@ -1,0 +1,198 @@
+{
+    "Alice": {
+        "Link": "https://www.prydwen.gg/zenless/characters/alice",
+        "Image": "https://www.prydwen.gg/static/fe62704be03765b9c6387bd8bbda9bc9/b26e2/37_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "S"
+    },
+    "Anby: Soldier 0": {
+        "Link": "https://www.prydwen.gg/zenless/characters/anby-demara-soldier-0",
+        "Image": "https://www.prydwen.gg/static/19230eb5314f4da9e3b51c7753968e79/b26e2/29_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "S"
+    },
+    "Astra Yao": {
+        "Link": "https://www.prydwen.gg/zenless/characters/astra-yao",
+        "Image": "https://www.prydwen.gg/static/840b08294e241ced35e5ab8c70f0a3f4/b26e2/27_card.webp",
+        "Element": "Ether",
+        "Element Pict": "https://www.prydwen.gg/static/4b4e998246a6d7eb4658bad7a0c31040/9fc66/ele_ether.png",
+        "Tier": "S"
+    },
+    "Burnice": {
+        "Link": "https://www.prydwen.gg/zenless/characters/burnice",
+        "Image": "https://www.prydwen.gg/static/7364dcf2659ce0d5390e76024a84467e/b26e2/23_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "S"
+    },
+    "Caesar": {
+        "Link": "https://www.prydwen.gg/zenless/characters/caesar",
+        "Image": "https://www.prydwen.gg/static/23ea48e0e401bd9256d9ba899448738b/b26e2/22_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "S"
+    },
+    "Evelyn": {
+        "Link": "https://www.prydwen.gg/zenless/characters/evelyn",
+        "Image": "https://www.prydwen.gg/static/aa2e94f742a6e200918a4db3e350ffd5/b26e2/28_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "S"
+    },
+    "Harumasa": {
+        "Link": "https://www.prydwen.gg/zenless/characters/harumasa",
+        "Image": "https://www.prydwen.gg/static/1432161e62dff32097d432906fae85c2/b26e2/26_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "S"
+    },
+    "Hugo": {
+        "Link": "https://www.prydwen.gg/zenless/characters/hugo",
+        "Image": "https://www.prydwen.gg/static/4907f19df0949ebbca84603aa9f2bae5/b26e2/33_card.webp",
+        "Element": "Ice",
+        "Element Pict": "https://www.prydwen.gg/static/7248289f6fcd2b673d595c18754f9553/9fc66/ele_ice.png",
+        "Tier": "S"
+    },
+    "Jane Doe": {
+        "Link": "https://www.prydwen.gg/zenless/characters/jane-doe",
+        "Image": "https://www.prydwen.gg/static/624e37d9caaf8f3c9b5d30488104af60/b26e2/21_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "S"
+    },
+    "Ju Fufu": {
+        "Link": "https://www.prydwen.gg/zenless/characters/ju-fufu",
+        "Image": "https://www.prydwen.gg/static/5049e0ee9bf6577f7e614f82ea84fcf7/b26e2/35_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "S"
+    },
+    "Lighter": {
+        "Link": "https://www.prydwen.gg/zenless/characters/lighter",
+        "Image": "https://www.prydwen.gg/static/66d0bd76dc05c5851d2bd1cd2c081129/b26e2/25_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "S"
+    },
+    "Lucia": {
+        "Link": "https://www.prydwen.gg/zenless/characters/lucia",
+        "Image": "https://www.prydwen.gg/static/f9464981b7c98a9abea7aa6e65fb964b/b26e2/41_card.webp",
+        "Element": "Ether",
+        "Element Pict": "https://www.prydwen.gg/static/4b4e998246a6d7eb4658bad7a0c31040/9fc66/ele_ether.png",
+        "Tier": "S"
+    },
+    "Lucy": {
+        "Link": "https://www.prydwen.gg/zenless/characters/lucy",
+        "Image": "https://www.prydwen.gg/static/4d91060488554694e8c1ec47c078db4a/b26e2/17_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "A"
+    },
+    "Manato": {
+        "Link": "https://www.prydwen.gg/zenless/characters/manato",
+        "Image": "https://www.prydwen.gg/static/b4b7e7ed36ae80eed64251b5aabf1110/b26e2/42_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "A"
+    },
+    "Orphie & Magus": {
+        "Link": "https://www.prydwen.gg/zenless/characters/orphie-and-magus",
+        "Image": "https://www.prydwen.gg/static/b48736ec02207a54d281814a04d874a7/b26e2/39_card.webp",
+        "Element": "Fire",
+        "Element Pict": "https://www.prydwen.gg/static/5ccc6ae17d5dc8b4d0cda158b4131a8f/9fc66/ele_fire.png",
+        "Tier": "S"
+    },
+    "Pan Yinhu": {
+        "Link": "https://www.prydwen.gg/zenless/characters/pan-yinhu",
+        "Image": "https://www.prydwen.gg/static/8bc97d0f273f3cee11ee93736ac49562/b26e2/36_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "A"
+    },
+    "Piper": {
+        "Link": "https://www.prydwen.gg/zenless/characters/piper",
+        "Image": "https://www.prydwen.gg/static/149e740693e896724e313c62321586d8/b26e2/18_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "A"
+    },
+    "Pulchra": {
+        "Link": "https://www.prydwen.gg/zenless/characters/pulchra",
+        "Image": "https://www.prydwen.gg/static/fde3974d7b4ae31a43e84cdc110ea6c2/b26e2/30_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "A"
+    },
+    "Qingyi": {
+        "Link": "https://www.prydwen.gg/zenless/characters/qingyi",
+        "Image": "https://www.prydwen.gg/static/3d6b608143a955440dce864c8929ab5d/b26e2/19_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "S"
+    },
+    "Seed": {
+        "Link": "https://www.prydwen.gg/zenless/characters/seed",
+        "Image": "https://www.prydwen.gg/static/4986867474f270e67528dd146f164a49/b26e2/40_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "S"
+    },
+    "Seth": {
+        "Link": "https://www.prydwen.gg/zenless/characters/seth",
+        "Image": "https://www.prydwen.gg/static/08e1b50db955142a4022bde6e7f3d2aa/b26e2/20_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "A"
+    },
+    "Trigger": {
+        "Link": "https://www.prydwen.gg/zenless/characters/trigger",
+        "Image": "https://www.prydwen.gg/static/aa68a7e386041695c934e29bf2169e33/b26e2/31_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "S"
+    },
+    "Vivian": {
+        "Link": "https://www.prydwen.gg/zenless/characters/vivian",
+        "Image": "https://www.prydwen.gg/static/beca9be109ab07cbafe20685bac7b00f/b26e2/32_card.webp",
+        "Element": "Ether",
+        "Element Pict": "https://www.prydwen.gg/static/4b4e998246a6d7eb4658bad7a0c31040/9fc66/ele_ether.png",
+        "Tier": "S"
+    },
+    "Yanagi": {
+        "Link": "https://www.prydwen.gg/zenless/characters/yanagi",
+        "Image": "https://www.prydwen.gg/static/be8ec00eb7f874531695e2194a3f86e3/b26e2/24_card.webp",
+        "Element": "Electric",
+        "Element Pict": "https://www.prydwen.gg/static/05ca25fbeb16ce9610fad2827ef1f0ed/9fc66/ele_electric.png",
+        "Tier": "S"
+    },
+    "Yidhari ": {
+        "Link": "https://www.prydwen.gg/zenless/characters/yidhari",
+        "Image": "https://www.prydwen.gg/static/511a4a02b0a0eb3a7ef80534c633eea9/b26e2/43_card.webp",
+        "Element": "Ice",
+        "Element Pict": "https://www.prydwen.gg/static/7248289f6fcd2b673d595c18754f9553/9fc66/ele_ice.png",
+        "Tier": "S"
+    },
+    "Yixuan": {
+        "Link": "https://www.prydwen.gg/zenless/characters/yixuan",
+        "Image": "https://www.prydwen.gg/static/d2425ce390c1ecfdca657dfdc33c6dc1/b26e2/34_card.webp",
+        "Element": "Ether",
+        "Element Pict": "https://www.prydwen.gg/static/e56ccb7e5a67cd1c02e54e83b82bb334/9fc66/ele_yi.png",
+        "Tier": "S"
+    },
+    "Yuzuha": {
+        "Link": "https://www.prydwen.gg/zenless/characters/ukinami-yuzuha",
+        "Image": "https://www.prydwen.gg/static/d9087eaa2bfb297b1c992e1f649c57ad/b26e2/38_card.webp",
+        "Element": "Physical",
+        "Element Pict": "https://www.prydwen.gg/static/408c1f909544cef3eff1c4a08844775b/9fc66/ele_physical.png",
+        "Tier": "S"
+    },
+    "Zhu Yuan": {
+        "Link": "https://www.prydwen.gg/zenless/characters/zhu-yuan",
+        "Image": "https://www.prydwen.gg/static/985d82faa526c95c6588080f72827ffc/b26e2/16_card.webp",
+        "Element": "Ether",
+        "Element Pict": "https://www.prydwen.gg/static/4b4e998246a6d7eb4658bad7a0c31040/9fc66/ele_ether.png",
+        "Tier": "S"
+    }
+}

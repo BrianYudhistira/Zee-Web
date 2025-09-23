@@ -12,6 +12,7 @@ class zzz_wengine extends Model
     protected $fillable = [
         'zzz_char_id',
         'build_name',
+        'build_s',
         'w_engine_picture',
         'detail'
     ];
@@ -19,5 +20,11 @@ class zzz_wengine extends Model
     public function zzz_char()
     {
         return $this->belongsTo(zzz_char::class, 'zzz_char_id');
+    }
+    
+    // Alias for consistent naming
+    public function zzzChar()
+    {
+        return $this->zzz_char();
     }
 }

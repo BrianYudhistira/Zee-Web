@@ -44,6 +44,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('zzz_char_id')->constrained('zzz_chars')->onDelete('cascade');
             $table->string('build_name');
+            $table->string('build_s');
             $table->string('w_engine_picture');
             $table->string('detail');
             $table->timestamps();

@@ -7,7 +7,7 @@
     <title>Zee-Hub</title>
     <link rel="icon" href="{{ asset('image/web_icon.png') }}" type="image/png">
 </head>
-<body class="text-white min-h-screen">
+<body class="text-white min-h-screen overflow-x-hidden">
     <!-- Animated Stars Background -->
     <div class="stars">
         <!-- Small stars -->
@@ -16,19 +16,19 @@
         <div class="star small" style="top: 35%; left: 25%;"></div>
         <div class="star small" style="top: 45%; left: 70%;"></div>
         <div class="star small" style="top: 60%; left: 15%;"></div>
-        <div class="star small" style="top: 75%; left: 85%;"></div>
+        <div class="star small" style="top: 75%; left: 80%;"></div>
         <div class="star small" style="top: 85%; left: 45%;"></div>
         <div class="star small" style="top: 25%; left: 60%;"></div>
         
         <!-- Medium stars -->
-        <div class="star medium" style="top: 30%; left: 90%;"></div>
+        <div class="star medium" style="top: 30%; left: 85%;"></div>
         <div class="star medium" style="top: 50%; left: 5%;"></div>
         <div class="star medium" style="top: 70%; left: 30%;"></div>
         <div class="star medium" style="top: 10%; left: 50%;"></div>
         <div class="star medium" style="top: 80%; left: 75%;"></div>
         
         <!-- Large stars -->
-        <div class="star large" style="top: 40%; left: 95%;"></div>
+        <div class="star large" style="top: 40%; left: 90%;"></div>
         <div class="star large" style="top: 65%; left: 10%;"></div>
         <div class="star large" style="top: 20%; left: 35%;"></div>
         
@@ -37,7 +37,7 @@
         <div class="shooting-star" style="top: 60%; left: -100px; width: 80px; animation-delay: 8s;"></div>
     </div>
 
-    <main class="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-black flex items-center justify-center relative py-4 md:py-8 px-4">
+    <main class="min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-black flex items-center justify-center relative py-4 md:py-8 px-4 overflow-hidden">
         <!-- Success/Error Messages -->
         @if (session('success'))
             <div id="success-notification" class="notification fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50">
@@ -130,7 +130,7 @@
 
                 @auth
                     <!-- Dashboard Button (Only when logged in) -->
-                    <a href="/profile" class="btn-interactive group relative overflow-hidden bg-gradient-to-r from-emerald-700/80 via-emerald-800/90 to-green-900/80 hover:from-emerald-600/90 hover:via-emerald-700/90 hover:to-green-800/90 text-white font-semibold py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-10 rounded-3xl transition-all duration-300 text-center shadow-2xl hover:shadow-emerald-500/30 transform hover:-translate-y-2 hover:scale-105 backdrop-blur-sm border border-emerald-400/30">
+                    <a href="/dashboard/profile/index" class="btn-interactive group relative overflow-hidden bg-gradient-to-r from-emerald-700/80 via-emerald-800/90 to-green-900/80 hover:from-emerald-600/90 hover:via-emerald-700/90 hover:to-green-800/90 text-white font-semibold py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-10 rounded-3xl transition-all duration-300 text-center shadow-2xl hover:shadow-emerald-500/30 transform hover:-translate-y-2 hover:scale-105 backdrop-blur-sm border border-emerald-400/30">
                         <div class="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="relative flex items-center justify-center space-x-3 md:space-x-4">
