@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-class WebController extends Controller
+class MenuController extends Controller
 {
     public function index()
     {
-        return redirect('/menu');
+        return view('/menu');
     }
 }

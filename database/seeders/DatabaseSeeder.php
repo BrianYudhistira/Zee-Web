@@ -108,7 +108,8 @@ class DatabaseSeeder extends Seeder
             'image' => 'https://www.prydwen.gg/static/fe62704be03765b9c6387bd8bbda9bc9/b26e2/37_card.webp',
             'tier' => 'S',
             'element' => 'unknown',
-            'element_picture' => 'unknown'
+            'element_picture' => 'unknown',
+            'type' => 'Support'
         ]);
 
         zzz_wengine::create([

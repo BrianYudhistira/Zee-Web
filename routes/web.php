@@ -7,7 +7,10 @@ use App\Http\Controllers\Dashboard\Profile\PortfolioController;
 use App\Http\Controllers\Dashboard\Profile\ProfileController;
 use App\Http\Controllers\Dashboard\Profile\ProjectController;
 use App\Http\Controllers\Dashboard\Profile\SkillController;
-use App\Http\Controllers\ScraperController;
+use App\Http\Controllers\Dashboard\ScraperController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ZeeScraper\zzzScraper\zzzController;
 
 use App\Http\Controllers\WebController;
 
@@ -16,11 +19,11 @@ Route::get('/', [WebController::class, 'index']);
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio');
 
-Route::get('/login', [WebController::class, 'login']);
-Route::post('/login', [WebController::class, 'signin'])->name('signin');
+Route::get('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'signin'])->name('signin');
 
-Route::get('/register', [WebController::class, 'register']);
-Route::post('/register', [WebController::class, 'signup'])->name('signup');
+Route::get('/register', [AuthController::class, 'register']);
+Route::post('/register', [AuthController::class, 'signup'])->name('signup');
 
 Route::post('/logout', function (Illuminate\Http\Request $request) {
     Auth::logout();
@@ -52,7 +55,7 @@ Route::prefix('dashboard')->group(function () {
         });
     });
 
-    Route::get('/data_scraper', [ScraperController::class, 'index'])->middleware(CheckLogin::class);
+    Route::get('/data_scraper', [ScraperController::class, 'index'])->middleware(CheckLogin::class)->name('admin.scraper');
     Route::get('/data_scraper/run/{user}', [ScraperController::class, 'scrapeNow'])->middleware(CheckLogin::class)->name('admin.scraper.run');
 });
 
@@ -61,16 +64,7 @@ Route::get('/ZeeScraper', function () {
     return view('zeescraper.scraper');
 })->name('zeescraper');
 
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 
-Route::get('/test', function () {
-    return view('emails.scraper-notification', [
-        'username' => 'Brian Yudhistira',
-        'status' => 'Completed',
-        'actionUrl' => url('/dashboard/data_scraper?tab=characters'),
-        'subject' => 'Data Scraping Process Completed',
-        'processType' => 'Character Data Scraping'
-    ]);
-})->name('test');
+Route::get('/zenless', [zzzController::class, 'index'])->name('zzzScraper');
+Route::get('/zenless/character/{id}', [zzzController::class, 'show'])->name('zzz.character.detail');

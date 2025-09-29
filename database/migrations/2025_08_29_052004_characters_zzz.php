@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('element');
             $table->string('element_picture');
             $table->string('tier');
+            $table->string('type');
             $table->timestamps();
         });
 

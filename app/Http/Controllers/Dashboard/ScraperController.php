@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\zzzScraperJob;
 use App\Models\zzz_char;
 use App\Models\zzz_diskdrive;
 use App\Models\zzz_wengine;
+use App\Http\Controllers\Controller;
 
 
 class ScraperController extends Controller

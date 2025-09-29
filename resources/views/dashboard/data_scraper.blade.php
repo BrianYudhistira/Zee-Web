@@ -83,6 +83,7 @@
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Link</th>
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Image</th>
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Element</th>
+                                    <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Type</th>
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Element Image</th>
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Tier</th>
                                 </tr>
@@ -111,6 +112,7 @@
                                         @endif
                                     </td>
                                     <td class="border border-gray-300 px-3 py-3 text-sm text-center text-gray-700">{{ $char->element ?? '-' }}</td>
+                                    <td class="border border-gray-300 px-3 py-3 text-sm text-center text-gray-700">{{ $char->type ?? '-' }}</td>
                                     <td class="border border-gray-300 px-3 py-3 text-sm text-center">
                                         @if($char->element_picture)
                                             <a href="{{ $char->element_picture }}" target="_blank" class="text-blue-600 hover:text-blue-800 underline" title="{{ $char->element_picture }}">

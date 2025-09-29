@@ -16,6 +16,7 @@ class zzz_char extends Model
         'element',
         'element_picture',
         'tier',
+        'type',
     ];
 
     public function zzz_diskdrive()

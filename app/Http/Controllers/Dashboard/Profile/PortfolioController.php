@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Profile;
 
 use App\Models\User;
 use App\Models\Project;

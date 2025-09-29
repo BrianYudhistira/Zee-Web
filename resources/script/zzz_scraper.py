@@ -90,6 +90,7 @@ class API():
             link_tag = character.find('a')
             image_tag = character.find('img', src=lambda x: x and x.endswith('.webp'))
             element_div = character.find('div', class_='element')
+            type_div = character.find('div', class_='class')
             tier_tag = character.find('div', class_=lambda c: c and 'rarity-' in c)
             if name_tag and link_tag and image_tag and element_div:
                 name = name_tag.text
@@ -100,6 +101,8 @@ class API():
                 picture_tag = element_div.find('picture')
                 element_tag = picture_tag.find('img')
                 element_type = element_tag['alt']
+                type_tag = type_div.find('picture')
+                type = type_tag.find('img')['alt'] if type_tag else None
                 src = element_tag.get('src') or element_tag.get('data-src')
                 element_pict = self.base_url + src if src.startswith('/') else src
                 if tier_tag:
@@ -107,7 +110,7 @@ class API():
                     match = re.search(r'rarity-([A-Z])', ' '.join(class_list))
                     if match:
                         tier = match.group(1)
-                char_data[name] = {"Link": link, "Image": image, 'Element': element_type, "Element Pict": element_pict, "Tier": tier}
+                char_data[name] = {"Link": link, "Image": image, 'Element': element_type, "Element Pict": element_pict, "Tier": tier, "Type": type}
                 # Scrape detail untuk setiap karakter
                 print(f"[SCRAPING] Fetching details for {name}...")
                 detail = self.scrape_details(link)
@@ -195,6 +198,7 @@ class API():
                 "element": char.get("Element", "unknown"),
                 "element_picture": char.get("Element Pict", "unknown"),
                 "tier": char.get("Tier", "unknown"),
+                "type": char.get("Type", "unknown"),
                 "created_at": now,
                 "updated_at": now,
                 "zzz_diskdrive": zzz_diskdrive,
@@ -211,6 +215,7 @@ class API():
                 "element": char.get("Element", "unknown"),
                 "element_picture": char.get("Element Pict", "unknown"),
                 "tier": char.get("Tier", "unknown"),
+                "type": char.get("Type", "unknown"),
                 "created_at": now,
                 "updated_at": now,
                 "zzz_diskdrive": zzz_diskdrive,
@@ -259,8 +264,8 @@ class API():
             for char_data in characters_data:
                 # Insert character
                 char_query = """
-                INSERT INTO zzz_chars (name, link, image, element, element_picture, tier, created_at, updated_at)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO zzz_chars (name, link, image, element, element_picture, tier, type, created_at, updated_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 char_values = (
                     char_data['name'][:255],  # Truncate to 255 chars
@@ -269,6 +274,7 @@ class API():
                     char_data['element'][:100],  # Truncate to 100 chars
                     char_data['element_picture'][:500],  # Truncate to 500 chars
                     char_data['tier'][:50],  # Truncate to 50 chars
+                    char_data['type'][:50],  # Truncate to 50 chars
                     char_data['created_at'],
                     char_data['updated_at']
                 )
