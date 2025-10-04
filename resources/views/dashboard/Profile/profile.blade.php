@@ -56,13 +56,46 @@
                 <!-- Profile Picture & Basic Info -->
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0">
-                        <img src="{{ asset(Auth::user()->profile_image) }}" 
-                             alt="Profile Picture" class="w-20 h-20 rounded-full object-cover border-2 border-gray-200">
+                        @if(Auth::user()->profile_image)
+                        <div class="relative w-20 h-20">
+                            <!-- Loading skeleton -->
+                            <div id="profile-image-skeleton" class="w-20 h-20 rounded-full border-2 border-gray-200 bg-gray-200 animate-pulse flex items-center justify-center absolute top-0 left-0">
+                                <div class="w-20 h-20 bg-gray-300 rounded-full animate-pulse"></div>
+                            </div>
+                            <!-- Actual image -->
+                            <img id="profile-image" 
+                                 src="{{ Auth::user()->profile_image_url }}" 
+                                 alt="Profile Picture" 
+                                 class="w-20 h-20 rounded-full object-cover object-top border-2 border-gray-200 opacity-0 transition-opacity duration-300"
+                                 onload="showProfileImage(this)"
+                                 onerror="handleImageError(this)">
+                        </div>
+                        @else
+                            <div class="w-20 h-20 rounded-full border-2 border-gray-200 flex items-center justify-center bg-gray-50">
+                                <i class="ri-user-line text-gray-400 text-2xl"></i>
+                            </div>
+                        @endif
                     </div>
                     <div class="flex-1 min-w-0">
                         <h4 class="text-lg font-medium text-gray-900 mb-1">{{ Auth::user()->name ?? 'John Doe' }}</h4>
                         <p class="text-gray-600 text-sm mb-2">{{ Auth::user()->description ?? 'Web Developer & Enthusiast' }}</p>
                         <p class="text-gray-500 text-xs">{{ Auth::user()->email ?? 'john.doe@example.com' }}</p>
+                        <div class="flex items-center text-gray-500 text-xs mt-1">
+                            <span class="mr-2">API Token:</span>
+                            <span class="font-mono mr-2" id="api-token-display">
+                                @if(Auth::user()->api_token)
+                                    <span id="token-hidden">{{ str_repeat('•', 20) }}</span>
+                                    <span id="token-visible" style="display: none;">{{ Auth::user()->api_token }}</span>
+                                @else
+                                    Not set 
+                                @endif
+                            </span>
+                            @if(Auth::user()->api_token)
+                                <button type="button" id="toggle-token" class="text-gray-400 hover:text-gray-600 transition-colors duration-200" title="Show/Hide Token">
+                                    <i id="eye-icon" class="ri-eye-line text-sm"></i>
+                                </button>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 
@@ -149,7 +182,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     @foreach($projects as $project)
                         <div class="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition duration-200 relative flex flex-col">
-                            <img src="{{ asset($project->image) }}" alt="{{ $project->name }}" class="w-full h-32 object-cover">
+                            <div class="relative h-32">
+                                <!-- Loading skeleton for project image -->
+                                <div class="project-image-skeleton w-full h-32 bg-gray-200 animate-pulse flex items-center justify-center">
+                                    <div class="w-12 h-12 bg-gray-300 rounded animate-pulse"></div>
+                                </div>
+                                <!-- Actual project image -->
+                                <img src="{{ $project->image_url }}" 
+                                     alt="{{ $project->name }}" 
+                                     class="project-image w-full h-32 object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-300"
+                                     loading="lazy"
+                                     onload="showProjectImage(this)"
+                                     onerror="handleProjectImageError(this)">
+                            </div>
                             <div class="p-4 flex flex-col flex-grow">
                                 <h4 class="font-medium text-gray-900 mb-2">{{ $project->name }}</h4>
                                 <p class="text-gray-600 text-sm mb-3 line-clamp-2 flex-grow">{{ $project->description }}</p>
@@ -226,6 +271,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // API Token toggle functionality
+    const toggleButton = document.getElementById('toggle-token');
+    const eyeIcon = document.getElementById('eye-icon');
+    const tokenHidden = document.getElementById('token-hidden');
+    const tokenVisible = document.getElementById('token-visible');
+    
+    if (toggleButton && tokenHidden && tokenVisible) {
+        toggleButton.addEventListener('click', function() {
+            if (tokenHidden.style.display === 'none') {
+                // Show hidden, hide visible
+                tokenHidden.style.display = 'inline';
+                tokenVisible.style.display = 'none';
+                eyeIcon.className = 'ri-eye-line text-sm';
+                toggleButton.title = 'Show Token';
+            } else {
+                // Show visible, hide hidden
+                tokenHidden.style.display = 'none';
+                tokenVisible.style.display = 'inline';
+                eyeIcon.className = 'ri-eye-off-line text-sm';
+                toggleButton.title = 'Hide Token';
+            }
+        });
+    }
+
     // Auto-hide success/error messages after 5 seconds
     setTimeout(function() {
         const successAlert = document.querySelector('.bg-green-100');
@@ -244,5 +313,87 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 5000);
 });
-</script>
+        // Handle profile image loading
+        function showProfileImage(img) {
+            const skeleton = document.getElementById('profile-image-skeleton');
+            
+            // Show the image immediately
+            img.style.opacity = '1';
+            
+            // Then hide skeleton with animation
+            if (skeleton) {
+                skeleton.style.opacity = '0';
+                setTimeout(() => {
+                    skeleton.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        function handleImageError(img) {
+            const skeleton = document.getElementById('profile-image-skeleton');
+            
+            // Show error state in skeleton
+            if (skeleton) {
+                skeleton.innerHTML = `
+                    <div class="flex flex-col items-center text-gray-400">
+                        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                        <span class="text-xs">Error</span>
+                    </div>
+                `;
+                skeleton.classList.remove('animate-pulse');
+                skeleton.style.opacity = '1';
+            }
+            
+            // Hide the broken image
+            img.style.display = 'none';
+        }
+
+        // Fallback: Show image after page load if JavaScript doesn't work
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileImage = document.getElementById('profile-image');
+            if (profileImage && profileImage.complete) {
+                showProfileImage(profileImage);
+            }
+        });
+
+        // Handle project images loading
+        function showProjectImage(img) {
+            const skeleton = img.parentElement.querySelector('.project-image-skeleton');
+            
+            // Show the image immediately
+            img.style.opacity = '1';
+            
+            // Then hide skeleton with animation
+            if (skeleton) {
+                skeleton.style.opacity = '0';
+                setTimeout(() => {
+                    skeleton.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        function handleProjectImageError(img) {
+            const skeleton = img.parentElement.querySelector('.project-image-skeleton');
+            
+            // Show error state in skeleton and remove image
+            if (skeleton) {
+                skeleton.innerHTML = `
+                    <div class="flex flex-col items-center text-gray-400 justify-center h-full">
+                        <svg class="w-8 h-8 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <span class="text-xs">No image</span>
+                    </div>
+                `;
+                skeleton.classList.remove('animate-pulse');
+                // Keep skeleton visible as placeholder
+                skeleton.style.opacity = '1';
+            }
+            
+            // Hide the broken image
+            img.style.display = 'none';
+        }
+    </script>
 @endsection

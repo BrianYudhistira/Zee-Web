@@ -10,10 +10,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="icon" href="{{ asset('image/web_icon.png') }}" type="image/png">
 </head>
 <body class="text-white">
     <main class="flex items-center justify-center">
-        <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full  max-w-md">
             <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
             
             @if ($errors->any())

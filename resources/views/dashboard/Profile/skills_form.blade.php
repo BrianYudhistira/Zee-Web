@@ -24,9 +24,9 @@
                 <p class="text-gray-600">Add your technical skills and expertise</p>
             </div>
 
-            <form id="skills-form" action="{{isset($skills) ? route('skills.update', $skills->id) : route('skills.store')}}" method="post" class="space-y-6">
+            <form id="skills-form" action="{{isset($skill) ? route('skills.update', $skill->id) : route('skills.store')}}" method="post" class="space-y-6">
                 @csrf
-                @if(isset($skills))
+                @if(isset($skill))
                     @method('PUT')
                 @endif
 
@@ -40,7 +40,7 @@
                                 Skills
                             </span>
                         </label>
-                        <input type="text" id="name" name="name" value="{{ old('name', isset($skills) ? $skills->name : '') }}"
+                        <input type="text" id="name" name="name" value="{{ old('name', isset($skill) ? $skill->name : '') }}"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-green-500 focus:border-green-500 hover:border-gray-400"
                             placeholder="e.g. Python, JavaScript, React, Node.js">
                         <p class="text-xs text-gray-500 mt-1">Add Skills</p>
@@ -55,7 +55,7 @@
                                 Skill Icons
                             </span>
                         </label>
-                        <input type="text" id="icon" name="icon" value="{{ old('icon', isset($skills) ? $skills->icon : '') }}"
+                        <input type="text" id="icon" name="icon" value="{{ old('icon', isset($skill) ? $skill->icon : '') }}"
                             class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-green-500 focus:border-green-500 hover:border-gray-400"
                             placeholder="e.g. devicon-python-plain, devicon-javascript-plain">
                         <p class="text-xs text-gray-500 mt-1">Use DevIcon class names for skill icons</p>

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->text('insta_link')->nullable();
             $table->text('git_link')->nullable(); 
             $table->text('linkedin_link')->nullable();
+            $table->text('api_token')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

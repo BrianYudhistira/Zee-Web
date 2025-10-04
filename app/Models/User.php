@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -28,6 +29,7 @@ class User extends Authenticatable
         'insta_link',
         'git_link',
         'linkedin_link',
+        'api_token'
     ];
 
     /**
@@ -51,5 +53,19 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the profile image URL.
+     * 
+     * @return string|null
+     */
+    public function getProfileImageUrlAttribute()
+    {
+        if (!$this->profile_image) {
+            return null;
+        }
+        
+        return Storage::url($this->profile_image);
     }
 }

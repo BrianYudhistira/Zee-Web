@@ -1,13 +1,13 @@
-<aside id="sidebar" class="fixed left-0 top-0 w-64 bg-gray-900 text-white h-screen shadow-xl overflow-y-auto z-10">
+<aside id="sidebar" class="fixed left-0 top-0 w-64 bg-gray-900 text-white h-screen shadow-xl overflow-y-auto z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
     <!-- Logo/Brand -->
     <div class="p-6 border-b border-gray-700">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold text-lg">Z</span>
+                <span class="text-white font-bold text-lg">C</span>
             </div>
             <div>
-                <h2 class="text-xl font-bold text-white">ZeeScraper</h2>
-                <p class="text-xs text-gray-400">Data Scraping Tool</p>
+                <h2 class="text-xl font-bold text-white">Control Panel</h2>
+                <p class="text-xs text-gray-400">Control your website</p>
             </div>
         </div>
     </div>
@@ -33,27 +33,22 @@
     
     <!-- Navigation Menu -->
     <nav class="mt-6 px-4 space-y-2">
-        <a href="/profile" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('profile') ? 'bg-blue-600 text-white' : '' }}">
+        <a href="/dashboard/profile/index" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('dashboard/profile/index') ? 'bg-blue-600 text-white' : '' }}">
             <i class="ri-user-line"></i>
             <span class="font-medium">Profile</span>
         </a>
-        
-        <a href="/dashboard" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('dashboard') ? 'bg-blue-600 text-white' : '' }}">
-            <i class="ri-dashboard-line"></i>
-            <span class="font-medium">Dashboard</span>
-        </a>
-        
-        <a href="/manage" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('manage') ? 'bg-blue-600 text-white' : '' }}">
-            <i class="ri-search-line"></i>
+
+        <a href="/dashboard/manage" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('dashboard/manage') ? 'bg-blue-600 text-white' : '' }}">
+            <i class="ri-user-settings-line"></i>
             <span class="font-medium">Manage User</span>
         </a>
-        
-        <a href="/results" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('results') ? 'bg-blue-600 text-white' : '' }}">
-            <i class="ri-file-list-3-line"></i>
-            <span class="font-medium">Results</span>
+
+        <a href="/dashboard/data_scraper" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('dashboard/data_scraper') ? 'bg-blue-600 text-white' : '' }}">
+            <i class="ri-database-2-line"></i>
+            <span class="font-medium">Database Scraper</span>
         </a>
-        
-        <a href="/settings" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('settings') ? 'bg-blue-600 text-white' : '' }}">
+
+        <a href="/dashboard/settings" class="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg transition-all duration-200 group {{ request()->is('dashboard/settings') ? 'bg-blue-600 text-white' : '' }}">
             <i class="ri-settings-3-line"></i>
             <span class="font-medium">Settings</span>
         </a>

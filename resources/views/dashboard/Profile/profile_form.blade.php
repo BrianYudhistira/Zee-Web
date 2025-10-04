@@ -5,6 +5,31 @@
 @section('page-description', 'Change Portfolio Information')
 
 @section('content')
+@if(session('error'))
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6 flex items-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="font-medium">{{ session('error') }}</span>
+        </div>
+    @endif
+
+    <!-- Validation Errors -->
+    @if($errors->any())
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+            <div class="flex items-center mb-2">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="font-medium">Please fix the following errors:</span>
+            </div>
+            <ul class="list-disc list-inside ml-7">
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <section id="Profile-Edit">
         <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
             <div class="mb-4">
@@ -69,24 +94,24 @@
                     </label>
                     <div class="flex items-center justify-center w-full">
                         <label for="profile_image" class="relative flex flex-col items-center justify-center w-full min-h-32 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition duration-200 overflow-hidden">
-                            <div id="profile_upload_area" class="flex flex-col items-center justify-center pt-5 pb-6">
+                            <div id="profile_upload_area" class="flex flex-col items-center justify-center pt-5 pb-6{{ $user->profile_image ? ' hidden' : '' }}">
                                 <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                                 </svg>
                                 <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                <p class="text-xs text-gray-500">PNG, JPG or JPEG (MAX. 2MB)</p>
+                                <p class="text-xs text-gray-500">PNG, JPG or JPEG (MAX. 5MB)</p>
                             </div>
-                            <img id="profile_preview" class="hidden absolute inset-0 w-full h-full object-contain bg-white rounded-lg" alt="Profile preview">
+                            <img id="profile_preview" src="{{ $user->profile_image ? $user->profile_image_url : '' }}" class="{{ $user->profile_image ? '' : 'hidden' }} absolute inset-0 w-full h-full object-contain bg-white rounded-lg" alt="Profile preview">
                             <input type="file" accept="image/jpeg,image/png,image/jpg" id="profile_image" name="profile_image" class="hidden">
                         </label>
                     </div>
-                    <div id="profile_preview_info" class="hidden">
+                    <div id="profile_preview_info" class="{{ $user->profile_image ? '' : 'hidden' }}">
                         <div class="flex items-center justify-between p-2 bg-blue-50 rounded-lg border">
                             <div class="flex items-center">
                                 <svg class="w-4 h-4 text-blue-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
-                                <span id="profile_file_name" class="text-sm text-blue-700 font-medium"></span>
+                                <span id="profile_file_name" class="text-sm text-blue-700 font-medium">{{ $user->profile_image ? basename($user->profile_image) : '' }}</span>
                             </div>
                             <button type="button" onclick="clearProfilePreview()" class="text-red-500 hover:text-red-700 text-sm font-medium">
                                 Remove
@@ -146,7 +171,32 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-14">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700" for="email">
+                                <i class="ri-mail-line"></i>
+                                Email Address
+                            </label>
+                            <div class="flex items-center space-x-4">
+                                <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}"
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
+                                    placeholder="Enter your email address">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-gray-700" for="api_token">
+                                <i class="fas fa-key"></i>
+                                API Token
+                            </label>
+                            <div class="flex items-center space-x-4">
+                                <input type="text" id="api_token" name="api_token" value="{{ old('api_token', $user->api_token) }}"
+                                    class="flex-1 px-4 py-3 border border-gray-300 rounded-lg shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover:border-gray-400"
+                                    placeholder="Enter your API token">
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- Submit Button -->
                 <div class="flex justify-end pt-6 border-t border-gray-200">
                     <button type="submit" class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
@@ -159,7 +209,6 @@
             </form>
         </div>
     </section>
-    @endsection
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -171,58 +220,52 @@
     const profileFileName = document.getElementById('profile_file_name');
 
     profileInput.addEventListener('change', function(e) {
-        handleImagePreview(e.target, profilePreview, profileUploadArea, profilePreviewInfo, profileFileName);
+        handleProfileImagePreview();
     });
 
-    function handleImagePreview(input, preview, uploadArea, previewInfo, fileName) {
-        const file = input.files[0];
+    function handleProfileImagePreview() {
+        const file = profileInput.files[0];
         
         if (file) {
             // Validate file type
             const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
             if (!validTypes.includes(file.type)) {
                 alert('Please select a valid image file (JPEG, JPG, PNG, or GIF)');
-                input.value = '';
+                profileInput.value = '';
                 return;
             }
 
-            // Validate file size (5MB for project, 2MB for profile)
-            const maxSize = input.id === 'project_image' ? 5 * 1024 * 1024 : 2 * 1024 * 1024;
+            // Validate file size (5MB)
+            const maxSize = 5 * 1024 * 1024;
             if (file.size > maxSize) {
-                const maxSizeMB = input.id === 'project_image' ? '5MB' : '2MB';
-                alert(`File size must be less than ${maxSizeMB}`);
-                input.value = '';
+                alert('File size must be less than 5MB');
+                profileInput.value = '';
                 return;
             }
 
             const reader = new FileReader();
             reader.onload = function(e) {
-                preview.src = e.target.result;
+                profilePreview.src = e.target.result;
                 
                 // Create a temporary image to get dimensions
                 const tempImg = new Image();
                 tempImg.onload = function() {
                     const aspectRatio = this.height / this.width;
-                    const containerWidth = preview.parentElement.offsetWidth;
+                    const containerWidth = profilePreview.parentElement.offsetWidth;
                     
                     // Calculate height based on aspect ratio with min/max constraints
-                    let newHeight;
-                    if (input.id === 'project_image') {
-                        newHeight = Math.max(160, Math.min(400, containerWidth * aspectRatio));
-                    } else {
-                        newHeight = Math.max(128, Math.min(300, containerWidth * aspectRatio));
-                    }
+                    const newHeight = Math.max(128, Math.min(300, containerWidth * aspectRatio));
                     
                     // Apply the calculated height to the container
-                    preview.parentElement.style.height = newHeight + 'px';
-                    preview.parentElement.classList.remove('min-h-32', 'min-h-40');
+                    profilePreview.parentElement.style.height = newHeight + 'px';
+                    profilePreview.parentElement.classList.remove('min-h-32', 'min-h-40');
                 };
                 tempImg.src = e.target.result;
                 
-                preview.classList.remove('hidden');
-                uploadArea.classList.add('hidden');
-                previewInfo.classList.remove('hidden');
-                fileName.textContent = file.name;
+                profilePreview.classList.remove('hidden');
+                profileUploadArea.classList.add('hidden');
+                profilePreviewInfo.classList.remove('hidden');
+                profileFileName.textContent = file.name;
             };
             reader.readAsDataURL(file);
         }
@@ -246,3 +289,5 @@ function clearProfilePreview() {
     profilePreview.parentElement.classList.add('min-h-32');
 }
 </script>
+
+@endsection
