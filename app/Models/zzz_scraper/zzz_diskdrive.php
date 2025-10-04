@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\zzz_scraper;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +21,6 @@ class zzz_diskdrive extends Model
         return $this->belongsTo(zzz_char::class, 'zzz_char_id');
     }
     
-    // Alias for consistent naming
     public function zzzChar()
     {
         return $this->zzz_char();

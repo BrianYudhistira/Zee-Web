@@ -27,10 +27,6 @@
     50% { transform: translateY(-10px); }
 }
 
-.hidden {
-    display: none !important;
-}
-
 /* Glassmorphism Effect */
 .backdrop-blur-sm {
     backdrop-filter: blur(8px);

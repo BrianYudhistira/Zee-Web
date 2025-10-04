@@ -17,9 +17,9 @@ return new class extends Migration
             $table->string('link');
             $table->string('image');
             $table->string('element');
-            $table->string('element_picture');
             $table->string('tier');
             $table->string('type');
+            $table->string('old_image')->nullable();
             $table->timestamps();
         });
 
@@ -32,12 +32,11 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('zzz_bestdiskdrivestats', function(Blueprint $table){
+        Schema::create('zzz_diskdrivestats', function(Blueprint $table){
             $table->id();
             $table->foreignId('zzz_char_id')->constrained('zzz_chars')->onDelete('cascade');
             $table->string('disk_number');
             $table->string('substats');
-            $table->string('endgame_stats');
             $table->timestamps();
         });
 
@@ -51,6 +50,13 @@ return new class extends Migration
             $table->string('rarity');
             $table->timestamps();
         }); 
+
+        Schema::create('zzz_bestsubstats', function(Blueprint $table){
+            $table->id();
+            $table->foreignId('zzz_char_id')->constrained('zzz_chars')->onDelete('cascade');
+            $table->string('substats');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -62,5 +68,6 @@ return new class extends Migration
         Schema::dropIfExists('zzz_diskdrives');
         Schema::dropIfExists('zzz_bestdiskdrivestats');
         Schema::dropIfExists('zzz_chars');
+        Schema::dropIfExists('zzz_bestsubstats');
     }
 };

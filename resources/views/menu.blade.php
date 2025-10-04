@@ -114,7 +114,7 @@
                 </a>
                 
                 <!-- ZeeScraper Button -->
-                <a href="/ZeeScraper" class="btn-interactive group relative overflow-hidden bg-gradient-to-r from-purple-800/80 via-purple-900/90 to-indigo-900/80 hover:from-purple-700/90 hover:via-purple-800/90 hover:to-indigo-800/90 text-white font-semibold py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-10 rounded-3xl transition-all duration-300 text-center shadow-2xl hover:shadow-purple-500/30 transform hover:-translate-y-2 hover:scale-105 backdrop-blur-sm border border-purple-400/30">
+                <a href="/zenless" class="btn-interactive group relative overflow-hidden bg-gradient-to-r from-purple-800/80 via-purple-900/90 to-indigo-900/80 hover:from-purple-700/90 hover:via-purple-800/90 hover:to-indigo-800/90 text-white font-semibold py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-10 rounded-3xl transition-all duration-300 text-center shadow-2xl hover:shadow-purple-500/30 transform hover:-translate-y-2 hover:scale-105 backdrop-blur-sm border border-purple-400/30">
                     <div class="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-indigo-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div class="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <div class="relative flex items-center justify-center space-x-3 md:space-x-4">
@@ -128,7 +128,7 @@
                     </div>
                 </a>
 
-                @auth
+                @auth->role
                     <!-- Dashboard Button (Only when logged in) -->
                     <a href="/dashboard/profile/index" class="btn-interactive group relative overflow-hidden bg-gradient-to-r from-emerald-700/80 via-emerald-800/90 to-green-900/80 hover:from-emerald-600/90 hover:via-emerald-700/90 hover:to-green-800/90 text-white font-semibold py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-10 rounded-3xl transition-all duration-300 text-center shadow-2xl hover:shadow-emerald-500/30 transform hover:-translate-y-2 hover:scale-105 backdrop-blur-sm border border-emerald-400/30">
                         <div class="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-green-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

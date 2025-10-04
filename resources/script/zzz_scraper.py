@@ -92,30 +92,40 @@ class API():
             element_div = character.find('div', class_='element')
             type_div = character.find('div', class_='class')
             tier_tag = character.find('div', class_=lambda c: c and 'rarity-' in c)
-            if name_tag and link_tag and image_tag and element_div:
+            if name_tag and link_tag and element_div:
                 name = name_tag.text
                 link = self.base_url + link_tag['href']
                 print(f"\n[SCRAPING] Starting character: {name}")
                 print(f"[SCRAPING] Character URL: {link}")
-                image = self.base_url + image_tag['src']
+                if image_tag:
+                    image = self.base_url + image_tag['src']
+                else:  
+                    image_tag_2nd = character.find('picture') if character.find('picture') else None
+                    image_div = image_tag_2nd.find('img')
+                    if image_div and image_div.has_attr('data-src'):
+                        image = self.base_url + image_div['data-src']
+
                 picture_tag = element_div.find('picture')
                 element_tag = picture_tag.find('img')
                 element_type = element_tag['alt']
                 type_tag = type_div.find('picture')
                 type = type_tag.find('img')['alt'] if type_tag else None
-                src = element_tag.get('src') or element_tag.get('data-src')
-                element_pict = self.base_url + src if src.startswith('/') else src
                 if tier_tag:
                     class_list = tier_tag.get('class', [])
                     match = re.search(r'rarity-([A-Z])', ' '.join(class_list))
                     if match:
                         tier = match.group(1)
-                char_data[name] = {"Link": link, "Image": image, 'Element': element_type, "Element Pict": element_pict, "Tier": tier, "Type": type}
+                if link and name and image and element_type and tier and type:
+                    char_data[name] = {"Link": link, "Image": image, 'Element': element_type, "Tier": tier, "Type": type}
+                else:
+                    print(f"[WARNING] Incomplete data for {name}: Link({ 'present' if link else 'missing' }), Name({ 'present' if name else 'missing' }), Image({ 'present' if image else 'missing' }), Element({ 'present' if element_type else 'missing' }), Tier({ 'present' if tier else 'missing' }), Type({ 'present' if type else 'missing' })")
                 # Scrape detail untuk setiap karakter
                 print(f"[SCRAPING] Fetching details for {name}...")
                 detail = self.scrape_details(link)
                 detail_data_all[name] = detail
                 print(f"[SCRAPING] > Completed character: {name}")
+            else:
+                print(f"[WARNING] Missing data for a character {name}, { 'nametag: true' if name_tag else 'nametag: null'}, {'linktag: true' if link_tag else 'linktag: null'}, {'imagetag: true' if image_tag else 'imagetag: null'}, {'elementdiv: true' if element_div else 'elementdiv: null'}")
 
 
         with open('characters.json', 'w', encoding='utf-8') as f:
@@ -131,6 +141,7 @@ class API():
         diskdrive_id = 1
         wengine_id = 1
         bestdiskdrivestat_id = 1
+        bestsubstat_id = 1
         for name in char_data:
             print(f"\n[FORMATTING] Processing character data: {name}")
             char = char_data[name]
@@ -170,58 +181,51 @@ class API():
                     "updated_at": now
                 })
                 wengine_id += 1
-            # Format zzz_bestdiskdrivestat
-            zzz_bestdiskdrivestat = []
-            best_stats = detail.get('Best_Disk_Drive_Stats', [])
+            # Format zzz_diskdrivestat
+            zzz_diskdrivestat = []
+            best_stats = detail.get('Disk_Drive_Stats', [])
             print(f"[FORMATTING] Processing {len(best_stats)} best disk drive stats for {name}")
             substats = ""
-            endgame_stats = ""
             for i, stat in enumerate(best_stats, 1):
                 disk_number = stat.get("Disk No", str(i))
                 substats = stat.get("Substats", substats)
-                endgame_stats = stat.get("Endgame Stats", endgame_stats)
-                zzz_bestdiskdrivestat.append({
+                zzz_diskdrivestat.append({
                     "id": bestdiskdrivestat_id,
                     "zzz_char_id": id_counter,
                     "disk_number": disk_number,
                     "substats": substats,
-                    "endgame_stats": endgame_stats,
                     "created_at": now,
                     "updated_at": now
                 })
                 bestdiskdrivestat_id += 1
+
+            zzz_bestsubstats = []
+            for substat in detail.get('Best_Substats', []):
+                zzz_bestsubstats.append({
+                    "id": bestsubstat_id,
+                    "zzz_char_id": id_counter,
+                    "substats": substat.get("Substats", ""),
+                    "created_at": now,
+                    "updated_at": now
+                })
+                bestsubstat_id += 1
+
             message.append({
                 "id": id_counter,
                 "name": name,
                 "link": char.get("Link", ""),
                 "image": char.get("Image", ""),
                 "element": char.get("Element", "unknown"),
-                "element_picture": char.get("Element Pict", "unknown"),
                 "tier": char.get("Tier", "unknown"),
                 "type": char.get("Type", "unknown"),
                 "created_at": now,
                 "updated_at": now,
                 "zzz_diskdrive": zzz_diskdrive,
                 "zzz_wengine": zzz_wengine,
-                "zzz_bestdiskdrivestat": zzz_bestdiskdrivestat
+                "zzz_diskdrivestat": zzz_diskdrivestat,
+                "zzz_bestsubstats": zzz_bestsubstats
             })
             
-            # Print data untuk setiap karakter
-            char_output = {
-                "id": id_counter,
-                "name": name,
-                "link": char.get("Link", ""),
-                "image": char.get("Image", ""),
-                "element": char.get("Element", "unknown"),
-                "element_picture": char.get("Element Pict", "unknown"),
-                "tier": char.get("Tier", "unknown"),
-                "type": char.get("Type", "unknown"),
-                "created_at": now,
-                "updated_at": now,
-                "zzz_diskdrive": zzz_diskdrive,
-                "zzz_wengine": zzz_wengine,
-                "zzz_bestdiskdrivestat": zzz_bestdiskdrivestat
-            }
             # print(json.dumps(char_output, indent=4, ensure_ascii=False))  # Commented to avoid encoding issues
             print(f"[FORMATTING] > Completed formatting for character: {name}")
             print("-" * 80)
@@ -246,7 +250,7 @@ class API():
             
             # Clear existing data (optional - comment out if you want to keep old data)
             print("[DATABASE] Clearing existing data...")
-            cursor.execute("DELETE FROM zzz_bestdiskdrivestats")
+            cursor.execute("DELETE FROM zzz_diskdrivestats")
             cursor.execute("DELETE FROM zzz_wengines") 
             cursor.execute("DELETE FROM zzz_diskdrives")
             cursor.execute("DELETE FROM zzz_chars")
@@ -256,7 +260,7 @@ class API():
             cursor.execute("ALTER TABLE zzz_chars AUTO_INCREMENT = 1")
             cursor.execute("ALTER TABLE zzz_diskdrives AUTO_INCREMENT = 1")
             cursor.execute("ALTER TABLE zzz_wengines AUTO_INCREMENT = 1")
-            cursor.execute("ALTER TABLE zzz_bestdiskdrivestats AUTO_INCREMENT = 1")
+            cursor.execute("ALTER TABLE zzz_diskdrivestats AUTO_INCREMENT = 1")
             self.db_connection.commit()
             
             characters_saved = 0
@@ -264,15 +268,14 @@ class API():
             for char_data in characters_data:
                 # Insert character
                 char_query = """
-                INSERT INTO zzz_chars (name, link, image, element, element_picture, tier, type, created_at, updated_at)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                INSERT INTO zzz_chars (name, link, image, element, tier, type, created_at, updated_at)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 char_values = (
                     char_data['name'][:255],  # Truncate to 255 chars
                     char_data['link'][:255],  # Truncate to 255 chars
                     char_data['image'][:500],  # Truncate to 500 chars
                     char_data['element'][:100],  # Truncate to 100 chars
-                    char_data['element_picture'][:500],  # Truncate to 500 chars
                     char_data['tier'][:50],  # Truncate to 50 chars
                     char_data['type'][:50],  # Truncate to 50 chars
                     char_data['created_at'],
@@ -317,21 +320,33 @@ class API():
                     cursor.execute(wengine_query, wengine_values)
                 
                 # Insert best disk drive stats
-                for stat in char_data['zzz_bestdiskdrivestat']:
+                for stat in char_data['zzz_diskdrivestat']:
                     stat_query = """
-                    INSERT INTO zzz_bestdiskdrivestats (zzz_char_id, disk_number, substats, endgame_stats, created_at, updated_at)
-                    VALUES (%s, %s, %s, %s, %s, %s)
+                    INSERT INTO zzz_diskdrivestats (zzz_char_id, disk_number, substats, created_at, updated_at)
+                    VALUES (%s, %s, %s, %s, %s)
                     """
                     stat_values = (
                         char_id,
                         stat['disk_number'][:50],  # Truncate to 50 chars
                         stat['substats'][:255],  # Truncate to 255 chars
-                        stat['endgame_stats'][:255],  # Truncate to 255 chars
                         stat['created_at'],
                         stat['updated_at']
                     )
                     cursor.execute(stat_query, stat_values)
-                
+
+                for substat in char_data['zzz_bestsubstats']:
+                    substat_query = """
+                    INSERT INTO zzz_bestsubstats (zzz_char_id, substats, created_at, updated_at)
+                    VALUES (%s, %s, %s, %s)
+                    """
+                    substat_values = (
+                        char_id,
+                        substat['substats'][:255],  # Truncate to 255 chars
+                        substat['created_at'],
+                        substat['updated_at']
+                    )
+                    cursor.execute(substat_query, substat_values)
+
                 characters_saved += 1
                 print(f"[DATABASE] Saved character: {char_data['name']} (ID: {char_id})")
             
@@ -353,7 +368,8 @@ class API():
         detail_data = {
             'W_engine': [],
             'Disk_Drive': [],
-            'Best_Disk_Drive_Stats': []
+            'Disk_Drive_Stats': [],
+            'Best_Substats': []
         }
 
         build = soup.find('div', class_='build-tips')
@@ -470,16 +486,16 @@ class API():
         if Best_Device_Stats:
             for stat in Best_Device_Stats:
                 Disk_No = stat.find('div', class_='stats-inside').text if stat.find('div', class_='stats-inside') else ""
-                Disk_desc = stat.find('div', class_='list-stats').text.strip() if stat.find('div', class_='list-stats') else ""
+                SubStats = stat.find('div', class_='list-stats').text.strip() if stat.find('div', class_='list-stats') else ""
                 best_disk_drive_data = {
                     "Disk No": Disk_No,
-                    "Disk Desc": Disk_desc
+                    "Substats": SubStats
                 }
-                detail_data['Best_Disk_Drive_Stats'].append(best_disk_drive_data)
+                detail_data['Disk_Drive_Stats'].append(best_disk_drive_data)
 
         substat_tags = soup.find('div', class_='box sub-stats')
         if substat_tags:
-            detail_data['Best_Disk_Drive_Stats'].append({"Substats": substat_tags.text.strip()})
+            detail_data['Best_Substats'].append({"Substats": substat_tags.text.strip()})
 
         End_game_stats = soup.find('div', class_='endgame-stats')
         if End_game_stats:

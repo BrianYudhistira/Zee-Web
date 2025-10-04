@@ -6,10 +6,10 @@ use App\Models\User;
 use App\Models\Project;
 use App\Models\Skill;
 use Illuminate\Database\Seeder;
-use App\Models\zzz_char;
-use App\Models\zzz_wengine;
-use App\Models\zzz_diskdrive;
-use App\Models\zzz_bestdiskdrivestat;
+use App\Models\zzz_scraper\zzz_char;
+use App\Models\zzz_scraper\zzz_wengine;
+use App\Models\zzz_scraper\zzz_diskdrive;
+use App\Models\zzz_scraper\zzz_diskdrivestat;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         // Create admin user with portfolio data embedded
         User::create([
             'name' => 'Brian Yudhistira',
-            'email' => 'brian@example.com',
+            'email' => 'brianyudhistira1@gmail.com',
             'password' => bcrypt('password'),
             'role' => 'admin',
             // Portfolio fields moved to user
@@ -108,7 +108,6 @@ class DatabaseSeeder extends Seeder
             'image' => 'https://www.prydwen.gg/static/fe62704be03765b9c6387bd8bbda9bc9/b26e2/37_card.webp',
             'tier' => 'S',
             'element' => 'unknown',
-            'element_picture' => 'unknown',
             'type' => 'Support'
         ]);
 
@@ -128,11 +127,10 @@ class DatabaseSeeder extends Seeder
             'detail_4pc' => 'This is a sample detail for 4-piece set.'
         ]);
 
-        zzz_bestdiskdrivestat::create([
+        zzz_diskdrivestat::create([
             'zzz_char_id' => 1,
             'disk_number' => '1',
             'substats' => 'Sample substats',
-            'endgame_stats' => 'Sample endgame stats'
         ]);
 
     }

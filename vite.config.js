@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/js/portfolio.js',
                 'resources/css/zeescraper.css',
                 'resources/css/zzzcraper.css',
+                'resources/css/zzz_detail.css',
             ],
             refresh: true,
         }),

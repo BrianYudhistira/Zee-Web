@@ -1,21 +1,19 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\zzz_scraper;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class zzz_wengine extends Model
+class zzz_diskdrivestat extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'zzz_char_id',
-        'build_name',
-        'build_s',
-        'w_engine_picture',
-        'detail',
-        'rarity'
+        'disk_number',
+        'substats',
+        'endgame_stats'
     ];
 
     public function zzz_char()
@@ -23,7 +21,6 @@ class zzz_wengine extends Model
         return $this->belongsTo(zzz_char::class, 'zzz_char_id');
     }
     
-    // Alias for consistent naming
     public function zzzChar()
     {
         return $this->zzz_char();

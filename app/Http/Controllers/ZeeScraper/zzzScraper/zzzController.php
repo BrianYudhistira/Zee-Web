@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ZeeScraper\zzzScraper;
 
 use App\Http\Controllers\Controller;
-use App\Models\zzz_char;
+use App\Models\zzz_scraper\zzz_char;
 
 class zzzController extends Controller
 {
@@ -17,7 +17,10 @@ class zzzController extends Controller
 
     public function show($id)
     {
-        $char = zzz_char::find($id);
+        $char = zzz_char::with(['zzz_diskdrive',
+                                'zzz_wengine',
+                                'zzz_diskdrive',
+                                'zzz_bestsubstat'])->find($id);
         return view('zeescraper.zzzScraper.zzzdetail', compact('char'));
     }
 }

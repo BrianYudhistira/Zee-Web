@@ -26,37 +26,37 @@
     <link rel="icon" href="{{ asset('image/web_icon.png') }}" type="image/png">
 </head>
   <body class="text-white relative overflow-x-hidden">
-    <nav class="fixed w-full z-50 glass-effect bg-black/90 backdrop-blur-md border-b border-gray-800/50">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+    <nav class="sm:fixed w-full z-50 sm:glass-effect bg-black sm:bg-black/20 backdrop-blur- border-b border-gray-800/50">
+      <div class="max-w-6xl mx-auto px-2 sm:px-0 ">
         <div class="flex items-center justify-between">
           <div class="flex-shrink-0">
             <a href="/menu" title="Go to Menu">
-              <img src="{{ asset('image/web_icon.png') }}" alt="Web Icon" class="h-6 sm:h-8">
+              <img src="{{ asset('image/web_icon.png') }}" alt="Web Icon" class="h-10 sm:h-15 object-cover">
             </a>
           </div>
-          <div class="hidden md:flex space-x-6 lg:space-x-8">
+          <div class="hidden md:flex space-x-6 lg:space-x-8 py-3 sm:py-4">
             <a
               href="#about"
-              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-base transition-colors duration-300"
+              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-lg transition-colors duration-300"
               >Tentang</a
             >
             <a
               href="#skills"
-              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-base transition-colors duration-300"
+              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-lg transition-colors duration-300"
               >Keahlian</a
             >
             <a
               href="#projects"
-              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-base transition-colors duration-300"
+              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-lg transition-colors duration-300"
               >Proyek</a
             >
             <a
               href="#contact"
-              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-base transition-colors duration-300"
+              class="nav-link text-gray-300 hover:text-primary font-medium text-sm lg:text-lg transition-colors duration-300"
               >Kontak</a
             >
           </div>
-          <div class="flex items-center space-x-2">
+          <div class="flex items-center space-x-2 py-3 sm:py-4">
             <a
               href="{{ asset('documents/cv.pdf') }}"
               download
@@ -102,7 +102,7 @@
       </div>
     </nav>
     <main>
-      <section id="about" class="min-h-screen pt-20 sm:pt-24 pb-16 px-4 sm:px-6 flex items-center">
+      <section id="about" class="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 pt-20 sm:pt-24 pb-16 px-4 sm:px-6 flex items-center">
         <div class="max-w-6xl mx-auto w-full">
           <div class="flex flex-col lg:flex-row items-center lg:items-start text-center lg:text-left gap-8 lg:gap-12">
             <div class="lg:w-1/2 fade-in px-4 lg:px-0">
@@ -113,6 +113,20 @@
               <p class="text-base sm:text-lg lg:text-xl text-white mb-6 sm:mb-8 leading-relaxed font-light">
                 {{$user->bio ?? 'Pengembang web yang passionate dalam menciptakan solusi digital inovatif. Saya memiliki ketertarikan mendalam terhadap teknologi web modern dan selalu antusias untuk mempelajari hal-hal baru dalam dunia IT.'}}
               </p>
+              <div class="md:hidden fade-in py-4">
+                <div class="relative flex justify-center">
+                  <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative">
+                      <img
+                        src="{{ $user->profile_image_url }}"
+                        alt="{{ $user->name . ' image' }}"
+                        class="w-48 h-48 sm:w-64 sm:h-64 rounded-full mx-auto object-cover object-top shadow-2xl border-4 border-gray-800 group-hover:border-primary transition-all duration-300"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="flex flex-col lg:flex-row gap-4 items-center justify-center lg:items-center lg:justify-start">
                 <!-- Social Media Icons -->
                 <div class="flex space-x-2 justify-center">
@@ -164,8 +178,8 @@
                 </div>
               </div>
             </div>
-            <div class="lg:w-1/2 fade-in mt-8 lg:mt-0 px-4 lg:px-0">
-              <div class="relative flex justify-center lg:justify-end">
+            <div class="hidden md:flex justify-end lg:w-1/2 fade-in px-4 lg:px-0">
+              <div class="relative ">
                 <div class="relative group">
                   <div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary rounded-full blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                   <div class="relative">
@@ -181,8 +195,8 @@
           </div>
         </div>
       </section>
-      <section id="skills" class="py-12 sm:py-16 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
+      <section id="skills" class="min-h-screen flex items-center bg-gradient-to-b from-gray-900 to-gray-800 sm:py-16 px-4 sm:px-6 ">
+        <div class="max-w-6xl mx-auto w-full">
           <div class="text-center mb-10 sm:mb-16 fade-in">
             <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-white">
               Keahlian & Teknologi
@@ -212,8 +226,8 @@
           @endif
         </div>
       </section>
-      <section id="projects" class="py-12 sm:py-16 px-4 sm:px-6">
-        <div class="max-w-6xl mx-auto">
+      <section id="projects" class="min-h-screen flex items-center bg-gradient-to-b from-gray-900 to-gray-800 py-12 sm:py-16 px-4 sm:px-6">
+        <div class="max-w-6xl mx-auto w-full">
           <div class="text-center mb-10 sm:mb-16 fade-in">
             <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-white">Proyek Saya</h2>
             <p class="text-lg sm:text-xl text-gray-400">
@@ -264,8 +278,8 @@
           </div>
         </div>
       </section>
-      <section id="contact" class="py-10 px-4 sm:px-6 mb-8 sm:mb-11">
-        <div class="max-w-4xl mx-auto">
+      <section id="contact" class="min-h-screen flex items-center bg-gradient-to-b from-gray-900 to-gray-800 py-10 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto w-full">
           <div class="text-center mb-12 sm:mb-16 fade-in">
             <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-white">Kontak Saya</h2>
             <p class="text-lg sm:text-xl text-gray-400">
@@ -330,21 +344,31 @@
         </div>
       </footer>
     </main>
-    <script src="logic.js"></script>
     <script id="smooth-scroll">
       document.addEventListener("DOMContentLoaded", function () {
         const links = document.querySelectorAll('a[href^="#"]');
+        const mobileMenu = document.getElementById('mobile-menu');
         links.forEach((link) => {
           link.addEventListener("click", function (e) {
             e.preventDefault();
             const targetId = this.getAttribute("href");
             const targetSection = document.querySelector(targetId);
             if (targetSection) {
-              const offsetTop = targetSection.offsetTop - 80;
-              window.scrollTo({
-                top: offsetTop,
-                behavior: "smooth",
-              });
+              if (window.matchMedia('(min-width: 768px)').matches) {
+                mobileMenu.classList.toggle('hidden');
+                const offsetTop = targetSection.offsetTop ;
+                window.scrollTo({
+                  top: offsetTop,
+                  behavior: "smooth",
+                });
+              } else {
+                mobileMenu.classList.toggle('hidden');
+                window.scrollTo({
+                  top: targetSection.offsetTop,
+                  behavior: "smooth",
+                });
+              }
+              
             }
           });
         });

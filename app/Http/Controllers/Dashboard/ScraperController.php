@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\zzzScraperJob;
-use App\Models\zzz_char;
-use App\Models\zzz_diskdrive;
-use App\Models\zzz_wengine;
+use App\Models\zzz_scraper\zzz_char;
+use App\Models\zzz_scraper\zzz_diskdrive;
+use App\Models\zzz_scraper\zzz_wengine;
 use App\Http\Controllers\Controller;
 
 
@@ -54,7 +54,7 @@ class ScraperController extends Controller
         }
         cache()->put($cacheKey, time(), 60); 
 
-        zzzScraperJob::dispatch($user->id);
+        zzzScraperJob::dispatch($user->id)->onQueue('data_scraper');
         return redirect()->back()->with('status', 'Scraper job has been queued.');
     }
 

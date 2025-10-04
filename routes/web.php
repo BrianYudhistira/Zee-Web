@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\Profile\SkillController;
 use App\Http\Controllers\Dashboard\ScraperController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuController;
+use App\Http\Middleware\CheckAdmin;
 use App\Http\Controllers\ZeeScraper\zzzScraper\zzzController;
 
 use App\Http\Controllers\WebController;
@@ -22,8 +23,8 @@ Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio
 Route::get('/login', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'signin'])->name('signin');
 
+Route::post('/register', [AuthController::class, 'signup'])->name('signup') ->middleware('throttle:5,1');
 Route::get('/register', [AuthController::class, 'register']);
-Route::post('/register', [AuthController::class, 'signup'])->name('signup');
 
 Route::post('/logout', function (Illuminate\Http\Request $request) {
     Auth::logout();
@@ -32,8 +33,7 @@ Route::post('/logout', function (Illuminate\Http\Request $request) {
     return redirect('/menu')->with('success', 'Logout successful!');
 })->name('logout');
 
-
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->middleware(CheckAdmin::class)->group(function () {
     Route::prefix('/profile')->group(function(){
         Route::get('/index', [ProfileController::class, 'index'])->middleware(CheckLogin::class)->name('profile');
         Route::prefix('/manage')->group(function () {
@@ -58,11 +58,6 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/data_scraper', [ScraperController::class, 'index'])->middleware(CheckLogin::class)->name('admin.scraper');
     Route::get('/data_scraper/run/{user}', [ScraperController::class, 'scrapeNow'])->middleware(CheckLogin::class)->name('admin.scraper.run');
 });
-
-//ZeeScraper Route
-Route::get('/ZeeScraper', function () {
-    return view('zeescraper.scraper');
-})->name('zeescraper');
 
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 

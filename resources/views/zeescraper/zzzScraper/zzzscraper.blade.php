@@ -1,8 +1,8 @@
 @extends('layouts.appscraper')
-@section('title', 'ZZZ Characters - Collection')
 @push('styles')
     @vite('resources/css/zzzscraper.css')
 @endpush
+@section('title', 'ZZZ Characters - Collection')
 
 @section('content')    
     <div class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen overflow-y-auto relative text-white">
@@ -40,7 +40,7 @@
                             <span class="text-xs font-semibold">ALL</span>
                         </button>
                         <button class="filter-btn group flex-1 bg-transparent hover:bg-red-500 text-white px-3 py-3 rounded-xl transition-all duration-300" onclick="FilterByElement('Physical')" data-element="Physical">
-                            <img src="{{ asset('image/zzz_logo/Pysical.png') }}" alt="Physical" class="w-6 h-6 opacity-70 group-hover:opacity-100 mx-auto">
+                            <img src="{{ asset('image/zzz_logo/Physical.png') }}" alt="Physical" class="w-6 h-6 opacity-70 group-hover:opacity-100 mx-auto">
                         </button>
                         <button class="filter-btn group flex-1 bg-transparent hover:bg-red-500 text-white px-3 py-3 rounded-xl transition-all duration-300" onclick="FilterByElement('Electric')" data-element="Electric">
                             <img src="{{ asset('image/zzz_logo/Electric.png') }}" alt="Electric" class="w-6 h-6 opacity-70 group-hover:opacity-100 mx-auto">
@@ -61,7 +61,7 @@
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                 @if($zzzChar)
                     @foreach($zzzChar as $char)
-                        <a href="{{ route('zzz.character.detail', $char->id) }}" class="character-card bg-gray-800 border border-red-500/30 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden block group" data-element="{{ $char->element }}">
+                        <a href="{{ route('zzz.character.detail', $char->id) }}" class="character-card {{ $char->tier == 'S' ? 'bg-amber-500/95' : 'bg-violet-900' }} border border-red-500/30 rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden block group" data-element="{{ $char->element }}">
                             <div class="relative">
                                 <img src="{{ $char->image }}" alt="{{ $char->name }}" class="w-full h-64 object-cover" style="object-position: center 30%;" loading="lazy">
 
@@ -73,7 +73,7 @@
                                         <p class="text-gray-300 text-xs md:text-sm capitalize">{{ $char->element ?? 'Unknown' }}</p>
                                     </div>
                                     <div class="flex-shrink-0">
-                                        <img src="{{ $char->element_picture }}" alt="{{ $char->element }}" class="w-6 h-6 object-contain">
+                                        <img src="{{ asset('image/zzz_logo/' . ($char->element) . '.png') }}" alt="{{ $char->element }}" class="w-6 h-6 object-contain">
                                     </div>
                                 </div>
                             </div>

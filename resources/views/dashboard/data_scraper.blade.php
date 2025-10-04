@@ -84,7 +84,7 @@
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Image</th>
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Element</th>
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Type</th>
-                                    <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Element Image</th>
+                                    <!-- <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Element Image</th> -->
                                     <th class="border border-gray-300 px-3 py-3 text-center text-sm font-medium text-gray-700">Tier</th>
                                 </tr>
                             </thead>
@@ -104,16 +104,14 @@
                                     </td>
                                     <td class="border border-gray-300 px-3 py-3 text-sm text-center">
                                         @if($char->image)
-                                            <a href="{{ $char->image }}" target="_blank" class="text-blue-600 underline hover:text-blue-800" title="{{ $char->image }}">
-                                                {{ Str::limit($char->image, 25) }}
-                                            </a>
+                                            <img src="{{ asset($char->image) }}" alt="{{ $char->name }}" class="h-16 w-16 object-cover object-top mx-auto rounded-full" loading="lazy">
                                         @else
                                             <span class="text-gray-500">-</span>
                                         @endif
                                     </td>
                                     <td class="border border-gray-300 px-3 py-3 text-sm text-center text-gray-700">{{ $char->element ?? '-' }}</td>
                                     <td class="border border-gray-300 px-3 py-3 text-sm text-center text-gray-700">{{ $char->type ?? '-' }}</td>
-                                    <td class="border border-gray-300 px-3 py-3 text-sm text-center">
+                                    <!-- <td class="border border-gray-300 px-3 py-3 text-sm text-center">
                                         @if($char->element_picture)
                                             <a href="{{ $char->element_picture }}" target="_blank" class="text-blue-600 hover:text-blue-800 underline" title="{{ $char->element_picture }}">
                                                 {{ Str::limit($char->element_picture, 25) }}
@@ -121,7 +119,7 @@
                                         @else
                                             <span class="text-gray-500">-</span>
                                         @endif
-                                    </td>
+                                    </td> -->
                                     <td class="border border-gray-300 px-3 py-3 text-center">
                                         @if($char->tier == 'S')
                                             <span class="inline-flex justify-center items-center w-8 h-8 px-2 py-1 bg-yellow-500 text-gray-800 text-sm font-medium rounded-full">S</span>
@@ -174,15 +172,6 @@
                                             <span class="text-sm font-medium text-gray-600">Link:</span>
                                             <a href="{{ $char->link }}" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm break-all">
                                                 Visit Link
-                                            </a>
-                                        </div>
-                                    @endif
-                                    
-                                    @if($char->image)
-                                        <div class="flex justify-between items-center">
-                                            <span class="text-sm font-medium text-gray-600">Image:</span>
-                                            <a href="{{ $char->image }}" target="_blank" class="text-blue-600 hover:text-blue-800 underline text-sm">
-                                                View Image
                                             </a>
                                         </div>
                                     @endif
@@ -456,7 +445,7 @@
                                             <div class="flex items-center">
                                                 @if($wengine->zzzChar && $wengine->zzzChar->image)
                                                     <img class="h-10 w-10 rounded-full object-cover mr-3" 
-                                                         src="{{ $wengine->zzzChar->image }}" 
+                                                         src="{{ asset($wengine->zzzChar->image) }}" 
                                                          alt="{{ $wengine->zzzChar->name ?? 'Unknown' }}"
                                                          loading="lazy">
                                                 @else
@@ -487,7 +476,7 @@
                                             <div class="flex items-center">
                                                 @if($wengine->w_engine_picture)
                                                     <img class="h-8 w-8 rounded mr-2 object-cover" 
-                                                         src="{{ $wengine->w_engine_picture }}" 
+                                                         src="{{ asset($wengine->w_engine_picture) }}" 
                                                          alt="W-Engine"
                                                          loading="lazy">
                                                 @endif
